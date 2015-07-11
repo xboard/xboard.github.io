@@ -1,0 +1,12 @@
+# Site settings
+title: xboard blog
+email: 
+description: "Pensamentos."
+baseurl: ""
+url: "http://xboard.github.io"
+twitter_username: fregis77
+github_username:  xboard
+
+# Build settings
+markdown: redcarpet
+permalink: pretty
