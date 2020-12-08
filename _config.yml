@@ -1,12 +1,24 @@
 # Site settings
 title: xboard blog
 email: 
-description: "Pensamentos."
-baseurl: ""
+description: "Notes, ideas and experiments."
+baseurl: "/"
 url: "http://xboard.github.io"
 twitter_username: fregis77
 github_username:  xboard
+permalink: /:title
 
 # Build settings
-markdown: redcarpet
-permalink: pretty
+markdown: CommonMarkGhPages
+commonmark:
+  options: ["SMART", "FOOTNOTES"]
+  extensions: ["strikethrough", "autolink", "table", "tagfilter"]
+theme: minima
+plugins:
+  - jekyll-feed
+
+# Site-wide configuration for reveal.js presentations.
+reveal_path: /reveal.js/
+reveal_theme_path: /reveal.js/css/theme/
+reveal_theme: night
+reveal_transition: convex

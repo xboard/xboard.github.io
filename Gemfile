@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
 
-require 'json'
-require 'open-uri'
-versions = JSON.parse(open('https://pages.github.com/versions.json').read)
 
-gem 'github-pages', versions['github-pages']
+gem "github-pages", "~> 209", group: :jekyll_plugins
+gem "jekyll-jupyter-notebook"
+
+group :jekyll_plugins do
+  gem 'jekyll-commonmark-ghpages'
+end
