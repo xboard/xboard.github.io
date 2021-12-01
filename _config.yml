@@ -1,9 +1,9 @@
 # Site settings
-title: xboard blog
+title: xboard.dev
 email: 
 description: "Notes, ideas and experiments."
 baseurl: ""
-url: "http://xboard.github.io"
+url: "http://xboard.dev"
 twitter_username: fregis77
 github_username:  xboard
 permalink: /:title
