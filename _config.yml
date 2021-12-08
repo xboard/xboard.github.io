@@ -4,7 +4,7 @@ email:
 description: "Notes, ideas and experiments."
 baseurl: ""
 url: "http://xboard.dev"
-twitter_username: fregis77
+twitter_username: xboard_
 github_username:  xboard
 permalink: /:title
 
