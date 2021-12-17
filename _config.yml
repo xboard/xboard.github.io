@@ -9,6 +9,10 @@ github_username:  xboard
 bio_domain: "xboard.me"
 permalink: /:title
 
+# SEO settings
+twitter:
+  username: xboard_
+
 # Build settings
 markdown: CommonMarkGhPages
 commonmark:
@@ -18,3 +22,4 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-jupyter-notebook
+  - jekyll-seo
