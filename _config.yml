@@ -12,7 +12,15 @@ permalink: /:title
 # SEO settings
 twitter:
   username: xboard_
+  card: summary_large_image
 
+social:
+  name: Flavio Regis de Arruda
+  links:
+    - https://twitter.com/xbord_
+    - https://www.linkedin.com/in/flavioarruda
+    - https://github.com/xboard
+    - https://bio.link/xboard
 # Build settings
 markdown: CommonMarkGhPages
 commonmark:
