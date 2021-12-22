@@ -3,7 +3,7 @@ layout: post
 title:  "[WIP] Interrupted Time Series Analysis Using Python - Part I"
 description: "What to do when A/B test is not an option"
 date:   2021-12-21 12:00:00
-image: /assets/images/its/its-card.jpg
+image: https://www.xboard.dev/assets/images/its/its-card.jpg
 
 mathjax: true
 ---
@@ -11,9 +11,15 @@ mathjax: true
     <img src="/assets/images/its/its-card.jpg" alt="gold standard meme" width="100%">
  </p>
 
+
 ### When A/B test is not an option
 
-The gold standard for statistically assert the effectiveness of an intervention is the randomized controlled experiment and its simplified online variant: the A/B testing. 
+The gold standard for statistically assert the effectiveness of an intervention is the randomized controlled experiment and its simplified online variant: the **A/B testing**. 
+
+---
+
+ 📝 
+---
 
 They are easy to understand, easy to setup (great free tools and libraries easily available) and when correctly designed they rule out any covariate differences between the groups.
 
@@ -65,13 +71,7 @@ Lore Ipsum
 
 
 
----
 
- 📝 The gold standard to empiricaly analyze the causal impact of an 
- intervention is the randomized assignment of target and control populations. 
- Neverthless sometimes this is impossible.
-
----
 
 
 
