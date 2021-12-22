@@ -14,14 +14,15 @@ mathjax: true
 
 ### When A/B test is not an option
 
-The gold standard for statistically assert the effectiveness of an intervention is the randomized controlled experiment and its simplified online variant: the **A/B testing**. 
+The gold standard for statistically assert the effectiveness of an intervention is the randomized controlled experiment and its simplified online variant: the A/B test. 
 
 ---
 
- 📝 
+ 📝 During A/B test there are simulataneouly running two almost identical versions of a product that only differ by the hypothesis you want to test (i.e can a red call to action button convert more then a blue one?). Users are **randomly** chosen to experience one (and only one) of the two versions while the experiment is being .
+
 ---
 
-They are easy to understand, easy to setup (great free tools and libraries easily available) and when correctly designed they rule out any covariate differences between the groups.
+They are easy to understand, easy to setup (great free [tools](https://optimize.google.com/optimize/home/) easily available) and when correctly designed they rule out any covariate differences between the groups.
 
 However sometimes it's just not possible to set up an A/B test:
 
