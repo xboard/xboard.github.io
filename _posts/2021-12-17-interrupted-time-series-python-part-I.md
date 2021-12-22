@@ -34,7 +34,7 @@ However sometimes it's just not possible to set up an A/B test:
 
 ## Quasi Experiments
 <p align="center">
-    <img src="/assets/images/its/the-gold-standard-meme.jpg" alt="gold standard meme" width="75%">
+    <img src="{{ site.url }}/assets/images/its/the-gold-standard-meme.jpg" alt="gold standard meme" width="75%">
  </p>
 If you can't do an A/B test then the second to best alternative are Quasi Experiments.
 
@@ -44,12 +44,12 @@ In a quasi experiment your treatment and control group are not divided by a  com
 #### Counterfactual reality
 
 <p align="center">
-    <img src="/assets/images/its/matrix-red-blue-pill.png" alt="matrix blue red pill choice of reality" width="100%">
-Lore Ipsum
+    <img src="{{ site.url }}/assets/images/its/matrix-red-blue-pill.png" alt="matrix blue red pill choice of reality" width="100%">
+WIP
 
 #### Quasi-experiment types
 
-Lore Ipsum
+WIP
 
 
 
@@ -59,15 +59,14 @@ One morning during his matinal run Bob come up with an idea on how to improve a 
 
 ### Naïve solution
 
-Lore Ipsum
+WIP
 
 ### Problems with naive approach
 <p align="center">
-    <img src="/assets/images/its/autocorrelation_future_meme.jpg" alt="predicts the future forgets temporal autocorrelation meme" width="75%">
+    <img src="{{ site.url }}/assets/images/its/autocorrelation_future_meme.jpg" alt="predicts the future forgets temporal autocorrelation meme" width="75%">
 
 
-Lore Ipsum
-
+WIP
 
 
 
