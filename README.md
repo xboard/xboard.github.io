@@ -15,5 +15,5 @@ gem install jekyll bundler
 # To serve locally:
 
 ```
-bundle exec jekyll serve
+bundle exec jekyll serve --livereload
 ```
