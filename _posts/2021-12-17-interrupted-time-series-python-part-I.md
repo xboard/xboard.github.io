@@ -9,7 +9,7 @@ mathjax: true
 ---
 
 <p align="center">
-    <img src="/assets/images/its/its-card.png" alt="gold standard meme" width="100%">
+    <img src="/assets/images/its/its-card.png" alt="gold standard meme" width="50%">
  </p>
 
 ### When A/B test is not an option
@@ -48,10 +48,28 @@ Interrupted time series (ITS) is a method of statistical analysis involving trac
 
 <p align="center">
     <img src="{{ site.url }}/assets/images/its/its1.jpg" alt="ITS example" width="100%">
+</p>
+
+---
+
+👍 <span style="text-decoration: underline">Strengths of ITS</span> include the ability to control for secular trends
+in the data (unlike a 2-period before-and-after $t$-test), ability to
+evaluate outcomes using population-level data, clear graphical
+presentation of results, ease of conducting stratified analyses,
+and ability to evaluate both intended and unintended consequences of interventions.
+
+👎 <span style="text-decoration: underline">Limitations of ITS</span> include the need
+for a minimum of 8 time periods before and 8 after an intervention to evaluate changes statistically, difficulty in analyzing the
+independent impact of separate components of a program that
+are implemented close together in time, and existence of a suitable control population.
+
+---
 
 In mathematical terms, it means that the time series equation includes four key coefficients:
 
-$$Y = b_0 + b_1T + b_2D + b_3P + \epsilon$$
+\begin{equation}
+Y = b_0 + b_1T + b_2D + b_3P + \epsilon
+\end{equation}
 
 Where:
 
@@ -61,7 +79,9 @@ $T$ is a continous variable which indicates the time passed from start of the ob
 
 $D$ is a dummy variable indicating observation collected before ($=0$) or after ($=1$) the policy intervention;
 
-$P$ is a continuous variable indicating time passed since the intervention has occured (before intervation has occured P is equal to $0$).
+$P$ is a continuous variable indicating time passed since the intervention has occured (before intervation has occured P is equal to $0$);
+
+$\epsilon$ represents a gaussian zero centered random error.
 
 ### Counterfactual
 
@@ -79,7 +99,7 @@ Counterfactuals are simply ways of comparing what happens given a change, versus
 
 ## Real world example
 
-One morning during his matinal run Bob come up with an idea on how to improve a metric for your product or business. You are quite confident on its benefit and decide to rollout it to all your customers.
+One morning during his matinal run Bob come up with an idea on how to improve a metric for his product . He is quite confident on its benefit and decide to rollout it to all his customers.
 
 ## Naïve solution
 
