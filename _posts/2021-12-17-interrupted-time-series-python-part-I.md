@@ -65,10 +65,11 @@ are implemented close together in time, and existence of a suitable control popu
 
 ---
 
-In mathematical terms, it means that the time series equation includes four key coefficients:
+In mathematical terms, it means that the time series equation \eqref{eq:its} includes four key coefficients:
 
 \begin{equation}
 Y = b_0 + b_1T + b_2D + b_3P + \epsilon
+\label{eq:its}
 \end{equation}
 
 Where:
@@ -81,12 +82,14 @@ $D$ is a dummy variable indicating observation collected before ($=0$) or after 
 
 $P$ is a continuous variable indicating time passed since the intervention has occured (before intervation has occured P is equal to $0$);
 
-$\epsilon$ represents a gaussian zero centered random error.
+With $\epsilon$ representing a zero centered gaussian random error.
 
 ### Counterfactual
 
 <p align="center">
-    <img src="{{ site.url }}/assets/images/its/matrix-red-blue-pill.png" alt="matrix blue red pill choice of reality" width="100%">
+    <img src="{{ site.url }}/assets/images/its/matrix-red-blue-pill.png" alt="matrix blue/red pill choice of reality" width="100%">
+    <i>What would have happened had Neo taken the blue pill?</i>
+</p>
 
 In time series, it is important to understand the counterfactual. The counterfactual refers to what it would have occured to Y, had the policy intervention not happened.
 
