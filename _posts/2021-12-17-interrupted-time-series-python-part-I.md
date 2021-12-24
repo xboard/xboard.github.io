@@ -59,7 +59,7 @@ $Y$ is the outcome variable;
 
 $T$ is a continous variable which indicates the time passed from start of the observational period;
 
-$D$ is a dummy variable indicating observation collected before (=0) or after (=1) the policy intervention;
+$D$ is a dummy variable indicating observation collected before ($=0$) or after ($=1$) the policy intervention;
 
 $P$ is a continuous variable indicating time passed since the intervention has occured (before intervation has occured P is equal to $0$).
 
