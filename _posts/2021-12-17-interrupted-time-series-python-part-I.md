@@ -4,12 +4,12 @@ title: "[WIP] Interrupted Time Series Analysis Using Python"
 description: "What to do when A/B test is not an option"
 date: 2021-12-24 01:00:00
 image: https://www.xboard.dev/assets/images/its/its-card.png
-
+tags: "data-science experiments"
 mathjax: true
 ---
 
 <p align="center">
-    <img src="/assets/images/its/its-card.png" alt="gold standard meme" width="50%">
+    <img src="/assets/images/its/its-card.png" alt="gold standard meme" width="67%">
  </p>
 
 ### When A/B test is not an option
@@ -35,7 +35,7 @@ However sometimes it's just not possible to set up an A/B test:
 ## Quasi Experiments
 
 <p align="center">
-    <img src="{{ site.url }}/assets/images/its/the-gold-standard-meme.jpg" alt="gold standard meme" width="75%">
+    <img src="{{ site.url }}/assets/images/its/the-gold-standard-meme.jpg" alt="gold standard meme" width="67%">
  </p>
 
 If you can't do an A/B test then the second to best alternative are quasi experiments [[1]](#ref-1).
@@ -111,7 +111,7 @@ WIP
 ### Problems with naive approach
 
 <p align="center">
-    <img src="{{ site.url }}/assets/images/its/autocorrelation_future_meme.jpg" alt="predicts the future forgets temporal autocorrelation meme" width="75%">
+    <img src="{{ site.url }}/assets/images/its/autocorrelation_future_meme.jpg" alt="predicts the future forgets temporal autocorrelation meme" width="67%">
 
 WIP
 
