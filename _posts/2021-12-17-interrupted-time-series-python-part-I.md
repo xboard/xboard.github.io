@@ -68,6 +68,8 @@ $P$ is a continuous variable indicating time passed since the intervention has o
 <p align="center">
     <img src="{{ site.url }}/assets/images/its/matrix-red-blue-pill.png" alt="matrix blue red pill choice of reality" width="100%">
 
+In time series, it is important to understand the counterfactual. The counterfactual refers to what it would have occured to Y, had the policy intervention not happened.
+
 ---
 
 📝
