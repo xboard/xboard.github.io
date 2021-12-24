@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "[WIP] Interrupted Time Series Analysis Using Python - Part I"
+title: "[WIP] Interrupted Time Series Analysis Using Python"
 description: "What to do when A/B test is not an option"
-date: 2021-12-23 12:00:00
+date: 2021-12-24 01:00:00
 image: https://www.xboard.dev/assets/images/its/its-card.png
 
 mathjax: true
@@ -44,22 +44,42 @@ In a quasi experiment your treatment and control group are not divided by a comp
 
 ## Interrupted Time Series (ITS)
 
-Interrupted time series (ITS) is a method of statistical analysis involving tracking a long-term period before and after a point of intervention to assess the intervention's effects. The time series refers to the data over the period, while the interruption is the intervention, which is a controlled external influence or set of influences. Effects of the intervention are evaluated by changes in the level and slope of the time series and statistical significance of the intervention parameters[[2]](#ref-2).
+Interrupted time series (ITS) is a method of statistical analysis involving tracking a long-term period before and after a point of intervention to assess the intervention's effects. The time series refers to the data over the period, while the interruption is the intervention, which is a controlled external influence or set of influences. Effects of the intervention are evaluated by changes in the level and slope of the time series and statistical significance of the intervention parameters[[2]](#ref-2). The more observations you have on both sides of the intervention the more robust your model will be (typically).
 
 <p align="center">
     <img src="{{ site.url }}/assets/images/its/its1.jpg" alt="ITS example" width="100%">
 
-#### Counterfactual reality
+In mathematical terms, it means that the time series equation includes four key coefficients:
+
+$$Y = b_0 + b_1T + b_2D + b_3P + \epsilon$$
+
+Where:
+
+$Y$ is the outcome variable;
+
+$T$ is a continous variable which indicates the time passed from start of the observational period;
+
+$D$ is a dummy variable indicating observation collected before (=0) or after (=1) the policy intervention;
+
+$P$ is a continuous variable indicating time passed since the intervention has occured (before intervation has occured P is equal to $0$).
+
+### Counterfactual
 
 <p align="center">
     <img src="{{ site.url }}/assets/images/its/matrix-red-blue-pill.png" alt="matrix blue red pill choice of reality" width="100%">
-WIP
 
-#### Real world example
+---
+
+📝
+Counterfactuals are simply ways of comparing what happens given a change, versus what should have happened had some change not occurred in the first place.
+
+---
+
+## Real world example
 
 One morning during his matinal run Bob come up with an idea on how to improve a metric for your product or business. You are quite confident on its benefit and decide to rollout it to all your customers.
 
-### Naïve solution
+## Naïve solution
 
 WIP
 
