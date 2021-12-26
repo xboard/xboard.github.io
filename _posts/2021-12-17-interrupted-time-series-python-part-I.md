@@ -78,9 +78,9 @@ $Y$ is the outcome variable;
 
 $T$ is a continous variable which indicates the time passed from start of the observational period;
 
-$D$ is a dummy variable indicating observation collected before ($=0$) or after ($=1$) the policy intervention;
+$D$ is a dummy variable indicating observation collected before ($D=0$) or after ($D=1$) the policy intervention;
 
-$P$ is a continuous variable indicating time passed since the intervention has occured (before intervation has occured P is equal to $0$);
+$P$ is a continuous variable indicating time passed since the intervention has occured (before intervation has occured $P$ is equal to $0$);
 
 With $\epsilon$ representing a zero centered gaussian random error.
 
@@ -88,7 +88,7 @@ With $\epsilon$ representing a zero centered gaussian random error.
 
 <p align="center">
     <img src="{{ site.url }}/assets/images/its/matrix-red-blue-pill.png" alt="matrix blue/red pill choice of reality" width="100%">
-    <i>What would have happened had Neo taken the blue pill?</i>
+    <i>What would have happened had Neo chosen the blue pill?</i>
 </p>
 
 In time series, it is important to understand the counterfactual. The counterfactual refers to what it would have occured to Y, had the policy intervention not happened.
