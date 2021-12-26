@@ -2,7 +2,7 @@
 layout: post
 title: "[WIP] Interrupted Time Series Analysis Using Python"
 description: "What to do when A/B test is not an option"
-date: 2021-12-24 01:00:00
+date: 2021-12-25 01:00:00
 image: https://www.xboard.dev/assets/images/its/its-card.png
 tags: "data-science experiments"
 mathjax: true
@@ -52,13 +52,13 @@ Interrupted time series (ITS) is a method of statistical analysis involving trac
 
 ---
 
-👍 <span style="text-decoration: underline">Strengths of ITS</span> include the ability to control for secular trends
+👍 <span style="text-decoration: underline">Strengths of Interrupted Time Series</span> include the ability to control for secular trends
 in the data (unlike a 2-period before-and-after $t$-test), ability to
 evaluate outcomes using population-level data, clear graphical
 presentation of results, ease of conducting stratified analyses,
 and ability to evaluate both intended and unintended consequences of interventions.
 
-👎 <span style="text-decoration: underline">Limitations of ITS</span> include the need
+👎 <span style="text-decoration: underline">Limitations of Interrupted Time Series</span> include the need
 for a minimum of 8 time periods before and 8 after an intervention to evaluate changes statistically, difficulty in analyzing the
 independent impact of separate components of a program that
 are implemented close together in time, and existence of a suitable control population.
@@ -100,13 +100,17 @@ Counterfactuals are simply ways of comparing what happens given a change, versus
 
 ---
 
-## Real world example
+## A practical example
 
-One morning during his matinal run Bob come up with an idea on how to improve a metric for his product . He is quite confident on its benefit and decide to rollout it to all his customers.
+WIP.
+
+### Dataset
+
+WIP.
 
 ## Naïve solution
 
-WIP
+WIP.
 
 ### Problems with naive approach
 
