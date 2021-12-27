@@ -4,7 +4,7 @@ title: "[WIP] Interrupted Time Series Analysis Using Python"
 description: "What to do when A/B test is not an option"
 date: 2021-12-25 01:00:00
 image: https://www.xboard.dev/assets/images/its/its-card.png
-tags: [data-science, experiments]
+tags: [data-science]
 mathjax: true
 ---
 
