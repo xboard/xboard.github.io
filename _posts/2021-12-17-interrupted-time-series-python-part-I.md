@@ -4,7 +4,7 @@ title: "[WIP] Interrupted Time Series Analysis Using Python"
 description: "What to do when A/B test is not an option"
 date: 2021-12-25 01:00:00
 image: https://www.xboard.dev/assets/images/its/its-card.png
-tags: "data-science experiments"
+tags: [data-science, experiments]
 mathjax: true
 ---
 
@@ -78,7 +78,7 @@ $Y$ is the outcome variable;
 
 $T$ is a continous variable which indicates the time passed from start of the observational period;
 
-$D$ is a dummy variable indicating observation collected before ($D=0$) or after ($D=1$) the policy intervention;
+$D$ is a dummy variable indicating observation collected before ($D=0$) or after ($D=1$) the intervention;
 
 $P$ is a continuous variable indicating time passed since the intervention has occured (before intervation has occured $P$ is equal to $0$);
 
@@ -91,7 +91,7 @@ With $\epsilon$ representing a zero centered gaussian random error.
     <i>What would have happened had Neo chosen the blue pill?</i>
 </p>
 
-In time series, it is important to understand the counterfactual. The counterfactual refers to what it would have occured to Y, had the policy intervention not happened.
+In a ITS, it is important to understand the counterfactual. The counterfactual refers to what it would have occured to Y, had the policy intervention not happened.
 
 ---
 
@@ -100,13 +100,20 @@ Counterfactuals are simply ways of comparing what happens given a change, versus
 
 ---
 
+In a randomized trial or A/B test we know the counterfactual average outcome because the experiment withheld the intervention from the control group (which by randomization is more or less the same as the intervention group). A critical assumption in ITS is that the outcome of interest trend would remain unchanged in the absence of the intervention.
+
 ## A practical example
 
 WIP.
 
 ### Dataset
 
-WIP.
+Using equation \eqref{eq:its} notation:
+
+| Outcome<br/>(Y) | Time<br/>(T) | Intervention<br/>(D) | Time since<br/>(P) |
+| :-------------: | :----------: | :------------------: | :----------------: |
+|       10        |      1       |          0           |         0          |
+|       20        |      2       |          0           |         0          |
 
 ## Naïve solution
 
