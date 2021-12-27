@@ -4,7 +4,12 @@
 
     <div style="float:left; margin-top:10px; margin-right:10px;">
     <a href="{{ "/feed.xml" | prepend: site.baseurl }}">
-      <img src="/assets/tiger-dragon.jpg" width="40">
+      <picture>
+        <source type="image/webp" srcset="/assets/tiger-dragon.webp" width="40">
+        <source type="image/jpeg" srcset="/assets/tiger-dragon.jpg" width="40">
+        <img src="/assets/tiger-dragon.jpg" width="40">
+      </picture>
+      
     </a>
     </div>
 

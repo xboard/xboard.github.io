@@ -35,7 +35,10 @@ However sometimes it's just not possible to set up an A/B test:
 ## Quasi Experiments
 
 <p align="center">
-    <img src="{{ site.url }}/assets/images/its/the-gold-standard-meme.jpg" alt="gold standard meme" width="67%">
+    <picture>
+        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/the-gold-standard-meme.webp" class="lazyload" alt="gold standard meme" width="67%">
+        <img data-src="{{ site.url }}/assets/images/its/the-gold-standard-meme.jpg" class="lazyload" alt="gold standard meme" width="67%">
+    </picture>
  </p>
 
 If you can't do an A/B test then the second to best alternative are quasi experiments [[1]](#ref-1).
@@ -47,7 +50,10 @@ In a quasi experiment your treatment and control group are not divided by a comp
 Interrupted time series (ITS) is a method of statistical analysis involving tracking a long-term period before and after a point of intervention to assess the intervention's effects. The time series refers to the data over the period, while the interruption is the intervention, which is a controlled external influence or set of influences. Effects of the intervention are evaluated by changes in the level and slope of the time series and statistical significance of the intervention parameters[[2]](#ref-2). The more observations you have on both sides of the intervention the more robust your model will be (typically).
 
 <p align="center">
-    <img src="{{ site.url }}/assets/images/its/its1.jpg" alt="ITS example" width="100%">
+    <picture>
+        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/its1.webp" class="lazyload" alt="gold standard meme" width="67%">
+        <img data-src="{{ site.url }}/assets/images/its/its1.jpg" class="lazyload" alt="ITS example" width="100%">
+    </pictures>
 </p>
 
 ---
@@ -87,7 +93,10 @@ With $\epsilon$ representing a zero centered gaussian random error.
 ### Counterfactual
 
 <p align="center">
-    <img src="{{ site.url }}/assets/images/its/matrix-red-blue-pill.png" alt="matrix blue/red pill choice of reality" width="100%">
+    <picture>
+        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/matrix-red-blue-pill.webp" class="lazyload" alt="gold standard meme" width="67%">
+        <img data-src="{{ site.url }}/assets/images/its/matrix-red-blue-pill.png" class="lazyload" alt="matrix blue/red pill choice of reality" width="100%">
+    </picture>
     <i>What would have happened had Neo chosen the blue pill?</i>
 </p>
 
@@ -122,7 +131,11 @@ WIP.
 ### Problems with naive approach
 
 <p align="center">
-    <img src="{{ site.url }}/assets/images/its/autocorrelation_future_meme.jpg" alt="predicts the future forgets temporal autocorrelation meme" width="67%">
+    <picture>
+        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/autocorrelation_future_meme.webp" class="lazyload" alt="gold standard meme" width="67%">
+        <img data-src="{{ site.url }}/assets/images/its/autocorrelation_future_meme.jpg" class="lazyload" alt="predicts the future forgets temporal autocorrelation meme" width="67%">
+    </picture>
+</p>
 
 WIP
 
