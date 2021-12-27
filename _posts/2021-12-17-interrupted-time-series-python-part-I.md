@@ -9,7 +9,10 @@ mathjax: true
 ---
 
 <p align="center">
-    <img src="/assets/images/its/its-card.png" alt="gold standard meme" width="67%">
+    <picture>
+        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/its-card.webp" class="lazyload" alt="gold standard meme" width="67%">
+        <img src="/assets/images/its/its-card.png" alt="gold standard meme" width="67%">
+    </picture>
  </p>
 
 ### When A/B test is not an option
@@ -51,7 +54,7 @@ Interrupted time series (ITS) is a method of statistical analysis involving trac
 
 <p align="center">
     <picture>
-        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/its1.webp" class="lazyload" alt="gold standard meme" width="67%">
+        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/its1.webp" class="lazyload" alt="gold standard meme" width="100%">
         <img data-src="{{ site.url }}/assets/images/its/its1.jpg" class="lazyload" alt="ITS example" width="100%">
     </pictures>
 </p>
@@ -94,7 +97,7 @@ With $\epsilon$ representing a zero centered gaussian random error.
 
 <p align="center">
     <picture>
-        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/matrix-red-blue-pill.webp" class="lazyload" alt="gold standard meme" width="67%">
+        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/matrix-red-blue-pill.webp" class="lazyload" alt="gold standard meme" width="100%">
         <img data-src="{{ site.url }}/assets/images/its/matrix-red-blue-pill.png" class="lazyload" alt="matrix blue/red pill choice of reality" width="100%">
     </picture>
     <i>What would have happened had Neo chosen the blue pill?</i>
