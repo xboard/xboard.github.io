@@ -42,6 +42,19 @@ a:visited {
   color: #205caa;
 }
 
+/* Me */
+table {
+  border-collapse: collapse;
+  border-spacing: 2px;
+  border: 2px solid black;
+  width: 100%;
+}
+
+th, td {
+  border: 1px solid black;
+  padding: 0.4rem;
+}
+
 /* Utility */
 
 .wrap:before,
@@ -626,3 +639,5 @@ a:visited {
     margin: 0 0 15px;
   }
 }
+
+

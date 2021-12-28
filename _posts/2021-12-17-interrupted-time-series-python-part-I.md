@@ -2,7 +2,7 @@
 layout: post
 title: "Interrupted Time Series (ITS) In Python"
 description: "Interrupted Time Series (ITS) Analysis Using Python"
-date: 2021-12-25 01:00:00
+date: 2021-12-27 06:00:00
 image: https://www.xboard.dev/assets/images/its/its-card.png
 tags: [data-science]
 mathjax: true
@@ -116,16 +116,26 @@ In a randomized trial or A/B test we know the counterfactual average outcome bec
 
 ## A practical example
 
-WIP.
+Bob runs a large and successful blog on personal finance. During an webinar he learns that making his web content load faster could reduce his [bouncing rate](https://en.wikipedia.org/wiki/Bounce_rate) and therefore decides to signup for a [CDN](https://en.wikipedia.org/wiki/Content_delivery_network) service. It's been 6 months since he added a CDN to his blog and he wants to know if the investiment he did reduced the bouncing rate.  
 
 ### Dataset
 
+Bob provides us with 6 months of [data](/assets/data/its/data.csv) before and 6 months after enabling CDN for his personal finance blog (intervention).
+
 Using equation \eqref{eq:its} notation:
 
-| Outcome<br/>(Y) | Time<br/>(T) | Intervention<br/>(D) | Time since<br/>(P) |
-| :-------------: | :----------: | :------------------: | :----------------: |
-|       10        |      1       |          0           |         0          |
-|       20        |      2       |          0           |         0          |
+| Bouncing rate<br/>(Y) | Week <br/>(T) | Intervention<br/>(D) | Intervention week<br/>(P) |
+| :-------------------: | :-----------: | :------------------: | :-----------------: |
+|       12.92           |       1       |          0           |         0           |
+|       13.03           |       2       |          0           |         0           |
+|       13.06           |       3       |          0           |         0           |
+|       13.17           |       4       |          0           |         0           |
+|       ...             |      ...      |         ...          |        ...          |
+|       12.04           |      45       |          1           |        21           |
+|       12.45           |      46       |          1           |        22           |
+|       12.74           |      47       |          1           |        23           |
+|       12.57           |      48       |          1           |        24           |
+
 
 ## Naïve solution
 
