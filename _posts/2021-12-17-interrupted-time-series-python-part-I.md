@@ -5,7 +5,7 @@ description: "Interrupted Time Series (ITS) Analysis Using Python"
 date: 2021-12-27 06:00:00
 image: https://www.xboard.dev/assets/images/its/its-card.png
 tags: [data-science]
-mathjax: true
+mathjax: trues
 ---
 
 <p align="center">
@@ -34,6 +34,7 @@ However sometimes it's just not possible to set up an A/B test:
 - Ethical concerns. Having a subset of your customers to a feature or bug fixe that gives them an competitive advantage over the others
 - Legal or regulatory requirements. A change in regulations becomes mandatory (i.e GPDR compliance) and should be applied to all your customers of a given country at the same time.
 - Temporal infeasibility. You want to analyze an event that already happened (i.e How last [Google's search algorithm update](https://moz.com/google-algorithm-change) impacted your sales funnel?).
+
 
 ## Quasi Experiments
 
@@ -116,13 +117,23 @@ In a randomized trial or A/B test we know the counterfactual average outcome bec
 
 ## A practical example
 
-Bob runs a large and successful blog on personal finance. During an webinar he learns that making his web content load faster could reduce his [bouncing rate](https://en.wikipedia.org/wiki/Bounce_rate) and therefore decides to signup for a [CDN](https://en.wikipedia.org/wiki/Content_delivery_network) service. It's been 6 months since he added a CDN to his blog and he wants to know if the investiment he did reduced the bouncing rate.  
+Bob runs a large and successful blog on personal finance. During an webinar he learns that making his web content load faster could reduce its [bounce rate](https://en.wikipedia.org/wiki/Bounce_rate) and therefore decides to signup for a [CDN](https://en.wikipedia.org/wiki/Content_delivery_network) service. It's been 6 months since he added a CDN to his blog and he wants to know if the investiment he did reduced the bounce rate.  
 
 ### Dataset
 
-Bob provides us with 6 months of [data](/assets/data/its/data.csv) before and 6 months after enabling CDN for his personal finance blog (intervention).
+Bob provides us with 24 weeks of [data](/assets/data/its/enriched_data.csv) before adding the CDN and 24 weeks after it (intervention). Therefore weeks 1 to 24 have bouncing rate before intervention and weeks 25 to 48 after it. 
 
-Using equation \eqref{eq:its} notation:
+<p align="center">
+    <picture>
+        <img data-src="{{ site.url }}/assets/images/its/data_viz1.svg" class="lazyload" alt="ploting data collected" width="67%">
+    </picture>
+</p>
+
+Optically it looks like after enabling the CDN the bounce rate decreased but by how much and it has statistical significance? To answer this question using interrupted time series analysis we first need to prepare our data.
+
+### Dataset preparation
+
+Using equation \eqref{eq:its} notation we [enrich this data](/assets/data/its/raw_data.csv) with values for columns $D$ ($0$ = before intervention, $1$ after) and $P$ (number of weekes since intervention started):
 
 | Bouncing rate<br/>(Y) | Week <br/>(T) | Intervention<br/>(D) | Intervention week<br/>(P) |
 | :-------------------: | :-----------: | :------------------: | :-----------------: |
@@ -139,7 +150,102 @@ Using equation \eqref{eq:its} notation:
 
 ## Naïve solution
 
-WIP.
+Let's implement a ordinary least squares (OLS) regression to measure the impact of our intervention:
+
+```python
+import pandas as pd
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+
+df = pd.read_csv("enriched_data.csv")
+
+model = smf.ols(formula='Y ~ T + D + P', data=df)
+res = model.fit()
+print(res.summary())
+```
+
+With output:
+
+<pre>
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      Y   R-squared:                       0.666
+Model:                            OLS   Adj. R-squared:                  0.643
+Method:                 Least Squares   F-statistic:                     29.18
+Date:                Tue, 28 Dec 2021   Prob (F-statistic):           1.52e-10
+Time:                        14:33:50   Log-Likelihood:                 4.8860
+No. Observations:                  48   AIC:                            -1.772
+Df Residuals:                      44   BIC:                             5.713
+Df Model:                           3                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     12.9100      0.096    134.225      0.000      12.716      13.104
+T              0.0129      0.007      1.920      0.061      -0.001       0.026
+D             -0.5202      0.132     -3.942      0.000      -0.786      -0.254
+P             -0.0297      0.010     -3.115      0.003      -0.049      -0.010
+==============================================================================
+Omnibus:                        3.137   Durbin-Watson:                   0.665
+Prob(Omnibus):                  0.208   Jarque-Bera (JB):                1.995
+Skew:                           0.279   Prob(JB):                        0.369
+Kurtosis:                       2.172   Cond. No.                         125.
+==============================================================================
+
+</pre>
+
+The model estimates that the bounce rate decreased 🔻 0.52% and this effect
+is statistically significant ($P>|t|$ is virtually zero). It is also noteworth that the model estimates a small (on average 🔻 0.0297%) but with statistical significance trend of a decrease in bounce rate each week. 
+
+Graphically:
+
+<details>
+    <summary>Click to see code.</summary>
+<p>
+
+```python
+
+start = 24
+end = 48
+beta = res.params
+
+predictions = res.get_prediction(df)
+summary = predictions.summary_frame(alpha=0.05)
+
+y_trend = predictions.predicted_mean[:start]
+y_trend_ci_lower = summary["obs_ci_lower"]
+y_trend_ci_upper = summary["obs_ci_upper"]
+y_cf = beta[0] + beta[1]*df["T"][start-1:] 
+y_new_trend = predictions.predicted_mean[start:]
+
+# Plotting
+plt.style.use('seaborn-whitegrid')
+fig, ax = plt.subplots(figsize=(16,10))
+ax.plot(df["T"], df["Y"], 'b.', label="data")
+ax.plot(df["T"][:start], y_trend_ci_upper[:start], 'k--')
+ax.plot(df["T"][:start], y_trend[:start], 'k.-', label="pre-intervention trend")
+ax.plot(df["T"][:start], y_trend_ci_lower[:start], 'k--')
+ax.plot(df["T"][start-1:], y_cf, 'k.', label="counterfactual")
+ax.plot(df["T"][start:], y_trend_ci_upper[start:], 'g--')
+ax.plot(df["T"][start:], y_new_trend, 'g.-', label="pos-intervention trend")
+ax.plot(df["T"][start:], y_trend_ci_lower[start:], 'g--')
+ax.axvline(x = 24.5, color = 'r', label = 'intervention')
+ax.legend(loc='best')
+plt.ylim([10, 15])
+plt.xlabel("Weeks")
+plt.ylabel("Bounce rate (%)");
+
+```
+
+</p>
+</details>
+
+<p align="center">
+    <picture>
+        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/data_trends1.webp" class="lazyload" alt="gold standard meme" width="100%" style="box-shadow: 5px 5px 10px grey;">
+        <img data-src="{{ site.url }}/assets/images/its/data_trends1.png" class="lazyload" alt="predicts the future forgets temporal autocorrelation meme" width="100%" style="box-shadow: 5px 5px 10px grey;">
+    </picture>
+</p>
 
 ### Problems with naive approach
 
@@ -149,6 +255,13 @@ WIP.
         <img data-src="{{ site.url }}/assets/images/its/autocorrelation_future_meme.jpg" class="lazyload" alt="predicts the future forgets temporal autocorrelation meme" width="67%">
     </picture>
 </p>
+
+One of the main assumptions in OLS (Ordinary Least Squares) regression is that:
+
+- Individual observations are *independent*.
+- Residuals follow a normal distribution.
+
+Let's first check for the normality of residuals:
 
 WIP
 
