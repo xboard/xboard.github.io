@@ -2,7 +2,7 @@
 layout: post
 title: "Interrupted Time Series (ITS) In Python"
 description: "Interrupted Time Series (ITS) Analysis Using Python"
-date: 2021-12-27 06:00:00
+date: 2021-12-29 06:00:00
 image: https://www.xboard.dev/assets/images/its/its-card.png
 tags: [data-science]
 mathjax: trues
@@ -10,8 +10,8 @@ mathjax: trues
 
 <p align="center">
     <picture>
-        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/its-card.webp" class="lazyload" alt="gold standard meme" width="67%">
-        <img src="/assets/images/its/its-card.png" alt="gold standard meme" width="67%">
+        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/its-card.webp" class="lazyload" alt="gold standard meme" width="100%">
+        <img src="/assets/images/its/its-card.png" alt="gold standard meme" width="100%">
     </picture>
  </p>
 
@@ -43,7 +43,7 @@ However sometimes it's just not possible to set up an A/B test:
         <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/the-gold-standard-meme.webp" class="lazyload" alt="gold standard meme" width="67%">
         <img data-src="{{ site.url }}/assets/images/its/the-gold-standard-meme.jpg" class="lazyload" alt="gold standard meme" width="67%">
     </picture>
- </p>
+</p>
 
 If you can't do an A/B test then the second to best alternative are quasi experiments [[1]](#ref-1).
 
@@ -55,8 +55,8 @@ Interrupted time series (ITS) is a method of statistical analysis involving trac
 
 <p align="center">
     <picture>
-        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/its1.webp" class="lazyload" alt="gold standard meme" width="100%">
-        <img data-src="{{ site.url }}/assets/images/its/its1.jpg" class="lazyload" alt="ITS example" width="100%">
+        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/its1.webp" class="lazyload" alt="gold standard meme" width="100%" style="box-shadow: 5px 5px 10px grey;">
+        <img data-src="{{ site.url }}/assets/images/its/its1.jpg" class="lazyload" alt="ITS example" width="100%" style="box-shadow: 5px 5px 10px grey;">
     </pictures>
 </p>
 
@@ -104,7 +104,7 @@ With $\epsilon$ representing a zero centered gaussian random error.
     <i>What would have happened had Neo chosen the blue pill?</i>
 </p>
 
-In a ITS, it is important to understand the counterfactual. The counterfactual refers to what it would have occured to Y, had the policy intervention not happened.
+In a ITS it is important to understand the counterfactual. The counterfactual refers to what it would have occured to Y, had the policy intervention not happened.
 
 ---
 
@@ -125,7 +125,7 @@ Bob provides us with 24 weeks of [data](/assets/data/its/enriched_data.csv) befo
 
 <p align="center">
     <picture>
-        <img data-src="{{ site.url }}/assets/images/its/data_viz1.svg" class="lazyload" alt="ploting data collected" width="67%">
+        <img data-src="{{ site.url }}/assets/images/its/data_viz1.svg" class="lazyload" alt="ploting data collected" width="100%" style="box-shadow: 5px 5px 10px grey;">
     </picture>
 </p>
 
@@ -164,7 +164,7 @@ res = model.fit()
 print(res.summary())
 ```
 
-With output:
+<span id="ols-output">With output:</span>
 
 <pre>
                             OLS Regression Results                            
@@ -210,25 +210,26 @@ end = 48
 beta = res.params
 
 predictions = res.get_prediction(df)
-summary = predictions.summary_frame(alpha=0.05)
+summary = predictions.summary_frame(alpha = 0.05)
 
 y_trend = predictions.predicted_mean[:start]
-y_trend_ci_lower = summary["obs_ci_lower"]
-y_trend_ci_upper = summary["obs_ci_upper"]
+ci_lower = summary["obs_ci_lower"]
+ci_upper = summary["obs_ci_upper"]
 y_cf = beta[0] + beta[1]*df["T"][start-1:] 
 y_new_trend = predictions.predicted_mean[start:]
 
 # Plotting
 plt.style.use('seaborn-whitegrid')
 fig, ax = plt.subplots(figsize=(16,10))
-ax.plot(df["T"], df["Y"], 'b.', label="data")
-ax.plot(df["T"][:start], y_trend_ci_upper[:start], 'k--')
+
+ax.scatter(df["T"], df["Y"], facecolors='none', edgecolors='steelblue', label="data", linewidths=2)
+ax.plot(df["T"][:start], ci_upper[:start], 'k--')
 ax.plot(df["T"][:start], y_trend[:start], 'k.-', label="pre-intervention trend")
-ax.plot(df["T"][:start], y_trend_ci_lower[:start], 'k--')
+ax.plot(df["T"][:start], ci_lower[:start], 'k--')
 ax.plot(df["T"][start-1:], y_cf, 'k.', label="counterfactual")
-ax.plot(df["T"][start:], y_trend_ci_upper[start:], 'g--')
+ax.plot(df["T"][start:], ci_upper[start:], 'g--')
 ax.plot(df["T"][start:], y_new_trend, 'g.-', label="pos-intervention trend")
-ax.plot(df["T"][start:], y_trend_ci_lower[start:], 'g--')
+ax.plot(df["T"][start:], ci_lower[start:], 'g--')
 ax.axvline(x = 24.5, color = 'r', label = 'intervention')
 ax.legend(loc='best')
 plt.ylim([10, 15])
@@ -261,9 +262,119 @@ One of the main assumptions in OLS (Ordinary Least Squares) regression is that:
 - Individual observations are *independent*.
 - Residuals follow a normal distribution.
 
-Let's first check for the normality of residuals:
+#### Let's first check for the normality of residuals:
 
-WIP
+We can apply the [Jarque-Bera test](https://en.wikipedia.org/wiki/Jarque%E2%80%93Bera_test) on residuals to checks whether their skewness an kurtosis match a normal distribution ($H_0$: residual distribution follows a normal distribution). Our `statsmodels` OLS [summary output](#ols-output) shows a `Prob(JB): 0.369` which for a standard $\alpha$ level of 0.05 doesn't allow us discard null
+hypothesis ($H_0$).
+
+<span id="ols-residuals-kde">Let's plot the distribution of residuals:</span>
+<details>
+<summary>Click to see code.</summary>
+<p>
+
+```python
+    res.resid.plot(kind="kde")
+```
+</p>
+</details>
+
+<p align="center">
+    <picture>
+        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/ols_res_kde.webp" class="lazyload" alt="ols residual distribution plot" width="80%" style="box-shadow: 5px 5px 10px grey;">
+        <img data-src="{{ site.url }}/assets/images/its/ols_res_kde.jpg" class="lazyload" alt="ols residual distribution plot" width="80%" style="box-shadow: 5px 5px 10px grey;">
+    </picture>
+</p>
+
+Which for a small dataset (less than 50 points) looks quite gaussian. 
+
+The assumption of normality of residuals is being met ✅.
+
+#### Checking independence of observations:
+
+The [Durbin-Watson statistic](https://en.wikipedia.org/wiki/Durbin%E2%80%93Watson_statistic) test if the residuals are correlated with its imediate predecessor, that is, if they have an autocorrelationf at lag 1 or $AR(1)$. Its value ranges from 0 to 4 and values smaller than 1.5 indicates a positive aucorrelation while values greater than 2.5 signal negative autocorrelation.
+
+If we take a look again at our OLS [summary output](#ols-output) we will observe that the Durbin-Watson statistic has a value of 0.665 which signals a strong positive $AR(1)$.
+
+<span id="ols-residuals-plot">Let's plot the residuals to see if we can observe this autocorrelation:</span>
+
+<details>
+<summary>Click to see code.</summary>
+<p>
+
+```python
+import altair as alt
+
+rules = alt.Chart(pd.DataFrame({
+  'residuals': [0.0],
+  'color': ['black']
+})).mark_rule().encode(
+  y='residuals',
+  color=alt.Color('color:N', scale=None)
+)
+
+residual_plot = alt.Chart(res_df).mark_point().encode(
+    x=alt.X('Weeks'),
+    y=alt.Y('residuals')
+)
+
+rules + residual_plot 
+```
+
+</p>
+</details>
+
+<p align="center">
+    <picture>
+        <img data-src="{{ site.url }}/assets/images/its/data_viz_residuals.svg" class="lazyload" alt="ols visualization of residuals" width="100%"  style="box-shadow: 5px 5px 10px grey;">
+    </picture>
+</p>
+
+Notice how residuals above/bellow zero have most points temporally close to it also above/bellow zero as well which goes against the independence of observations assumption of OLS ❌. 
+
+## Autoregressive model solution
+
+
+```
+// Brief description of an autoregressive model.
+```
+
+<details>
+<summary>Click to see code.</summary>
+<p>
+
+```python
+sm.graphics.tsa.plot_acf(res.resid, lags=10)
+plt.show()
+```
+</p>
+</details>
+
+<p align="center">
+    <picture>
+        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/autocorrelation.webp" class="lazyload" alt="autocorrelation plot" width="100%" style="box-shadow: 5px 5px 10px grey;">
+        <img data-src="{{ site.url }}/assets/images/its/autocorrelation.png" class="lazyload" alt="autocorrelation plot" width="100%" style="box-shadow: 5px 5px 10px grey;">
+    </picture>
+</p>
+
+
+<details>
+<summary>Click to see code.</summary>
+<p>
+
+```python
+sm.graphics.tsa.plot_pacf(res.resid, lags=10)
+plt.show()   
+```
+</p>
+</details>
+
+<p align="center">
+    <picture>
+        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/partial_autocorrelation.webp" class="lazyload" alt="partial autocorrelation plot" width="100%"
+        style="box-shadow: 5px 5px 10px grey;">
+        <img data-src="{{ site.url }}/assets/images/its/partial_autocorrelation.png" class="lazyload" alt="partial autocorrelation plot" width="100%" style="box-shadow: 5px 5px 10px grey;">
+    </picture>
+</p>
 
 ## References
 
