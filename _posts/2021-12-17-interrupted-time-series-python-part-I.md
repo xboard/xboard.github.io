@@ -11,7 +11,7 @@ mathjax: trues
 <p align="center">
     <picture>
         <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/its-card.webp" class="lazyload" alt="gold standard meme" width="100%">
-        <img src="/assets/images/its/its-card.png" alt="gold standard meme" width="100%">
+        <img src="{{ site.url }}/assets/images/its/its-card.png" alt="gold standard meme" width="100%">
     </picture>
  </p>
 
@@ -264,7 +264,7 @@ One of the main assumptions in OLS (Ordinary Least Squares) regression is that:
 
 #### Let's first check for the normality of residuals:
 
-We can apply the [Jarque-Bera test](https://en.wikipedia.org/wiki/Jarque%E2%80%93Bera_test) on residuals to checks whether their skewness an kurtosis match a normal distribution ($H_0$: residual distribution follows a normal distribution). Our `statsmodels` OLS [summary output](#ols-output) shows a `Prob(JB): 0.369` which for a standard $\alpha$ level of 0.05 doesn't allow us discard null
+We can apply the [Jarque-Bera test](https://en.wikipedia.org/wiki/Jarque%E2%80%93Bera_test) on residuals to checks whether their skewness and kurtosis match a normal distribution ($H_0$: residual distribution follows a normal distribution). Our `statsmodels` OLS [summary output](#ols-output) shows a `Prob(JB): 0.369` which for a standard $\alpha$ level of 0.05 doesn't allow us discard null
 hypothesis ($H_0$).
 
 <span id="ols-residuals-kde">Let's plot the distribution of residuals:</span>
