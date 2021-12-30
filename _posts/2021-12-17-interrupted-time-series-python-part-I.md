@@ -413,6 +413,44 @@ plt.show()
 
 WIP
 
+```python
+from statsmodels.tsa.arima.model import ARIMA
+
+arima_results = ARIMA(df["Y"], df[["T","D","P"]], order=(1,0,0)).fit()
+print(arima_results.summary())
+```
+
+Output:
+
+```
+                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                      Y   No. Observations:                   48
+Model:                 ARIMA(1, 0, 0)   Log Likelihood                  18.574
+Date:                Thu, 30 Dec 2021   AIC                            -25.148
+Time:                        01:51:46   BIC                            -13.921
+Sample:                             0   HQIC                           -20.905
+                                 - 48                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         12.9172      0.279     46.245      0.000      12.370      13.465
+T              0.0121      0.016      0.767      0.443      -0.019       0.043
+D             -0.5510      0.273     -2.018      0.044      -1.086      -0.016
+P             -0.0238      0.021     -1.155      0.248      -0.064       0.017
+ar.L1          0.6635      0.138      4.803      0.000       0.393       0.934
+sigma2         0.0267      0.006      4.771      0.000       0.016       0.038
+===================================================================================
+Ljung-Box (L1) (Q):                   1.00   Jarque-Bera (JB):                 0.15
+Prob(Q):                              0.32   Prob(JB):                         0.93
+Heteroskedasticity (H):               1.44   Skew:                            -0.05
+Prob(H) (two-sided):                  0.47   Kurtosis:                         3.25
+===================================================================================
+```
+
+Analysis...
+
 <details>
 <summary>Click to see code.</summary>
 <p>
@@ -464,6 +502,13 @@ plt.ylabel("Bounce rate (%)");
         <img data-src="{{ site.url }}/assets/images/its/data_trends2.png" class="lazyload" alt="arima pre and post intervention modeling with counterfactual" width="100%" style="box-shadow: 5px 5px 10px grey;">
     </picture>
 </p>
+
+Comments...
+
+## Conclusion
+
+WIP
+
 
 <span id="chegou-no-fim"></span>
 
