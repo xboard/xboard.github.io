@@ -376,6 +376,8 @@ plt.show()
     </picture>
 </p>
 
+<span id="chegou-no-fim"></span>
+
 ## References
 
 <a name="ref-1" href="https://shopify.engineering/using-quasi-experiments-counterfactuals" target="blank" rel="noopener">[1] Shopify Engineering: How to Use Quasi-experiments and Counterfactuals to Build Great Products.</a>
