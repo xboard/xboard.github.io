@@ -210,12 +210,12 @@ end = 48
 beta = res.params
 
 predictions = res.get_prediction(df)
-summary = predictions.summary_frame(alpha = 0.05)
+summary = predictions.summary_frame(alpha=0.05)
 
 y_trend = predictions.predicted_mean[:start]
 ci_lower = summary["obs_ci_lower"]
 ci_upper = summary["obs_ci_upper"]
-y_cf = beta[0] + beta[1]*df["T"][start-1:] 
+cf = cf_res.get_prediction(exog=df["T"][start:]).summary_frame(alpha=0.05)
 y_new_trend = predictions.predicted_mean[start:]
 
 # Plotting
@@ -226,7 +226,8 @@ ax.scatter(df["T"], df["Y"], facecolors='none', edgecolors='steelblue', label="d
 ax.plot(df["T"][:start], ci_upper[:start], 'k--')
 ax.plot(df["T"][:start], y_trend[:start], 'k.-', label="pre-intervention trend")
 ax.plot(df["T"][:start], ci_lower[:start], 'k--')
-ax.plot(df["T"][start-1:], y_cf, 'k.', label="counterfactual")
+ax.plot(df["T"][start:], cf['mean'], 'k.', label="counterfactual")
+ax.fill_between(df["T"][start:], cf['mean_ci_lower'], cf['mean_ci_upper'], color='k', alpha=0.1);
 ax.plot(df["T"][start:], ci_upper[start:], 'g--')
 ax.plot(df["T"][start:], y_new_trend, 'g.-', label="pos-intervention trend")
 ax.plot(df["T"][start:], ci_lower[start:], 'g--')
@@ -331,12 +332,35 @@ rules + residual_plot
 
 Notice how residuals above/bellow zero have most points temporally close to it also above/bellow zero as well which goes against the independence of observations assumption of OLS ❌. 
 
+In practice when analyzing time series data the presence of autocorrelation is the rule instead of the exception since in general the factors that contributed to a given observation tend to persist for a while.
+
 ## Autoregressive model solution
 
+The autoregressive model specifies that each observation depends linearly on previous observations.
 
-```
-// Brief description of an autoregressive model.
-```
+Thus, an autoregressive model of order $p$ ($AR(p)$) can be written as
+
+\begin{equation}
+y_t = c + \phi_1 y_{t-1} + \phi_2 y_{t-2} + \dots + \phi_2 y_{t-2} + \epsilon_t
+\label{eq:ar}
+\end{equation}
+
+Where:
+
+$y_t$: observation at time $t$,
+
+$y_{t-i}$: observation at time $t - i$,
+
+$\phi_i$: coefficient of how much observation $y_{t - i}$ correlates to $y_t$,
+
+$\epsilon_t$: white noise ( $\mathcal{N}(0, \sigma²)$ ) at time $t$.
+
+
+
+
+#### Autocorrelation
+
+To assess how much an observation correlates with past observations is useful to do an autocorrelation plot as bellow:
 
 <details>
 <summary>Click to see code.</summary>
@@ -356,6 +380,14 @@ plt.show()
     </picture>
 </p>
 
+#### Partial Autocorrelation
+
+---
+
+📝 The partial autocorrelation at lag k is the correlation that results after removing the effect of any correlations due to the terms at shorter lags.
+
+---
+
 
 <details>
 <summary>Click to see code.</summary>
@@ -373,6 +405,63 @@ plt.show()
         <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/partial_autocorrelation.webp" class="lazyload" alt="partial autocorrelation plot" width="100%"
         style="box-shadow: 5px 5px 10px grey;">
         <img data-src="{{ site.url }}/assets/images/its/partial_autocorrelation.png" class="lazyload" alt="partial autocorrelation plot" width="100%" style="box-shadow: 5px 5px 10px grey;">
+    </picture>
+</p>
+
+
+### ARIMA 
+
+WIP
+
+<details>
+<summary>Click to see code.</summary>
+<p>
+
+```python
+start = 24
+end = 48
+
+predictions = arima_results.get_prediction(0, end-1)
+summary = predictions.summary_frame(alpha=0.05)
+
+arima_cf = ARIMA(df["Y"][:start], df["T"][:start], order=(1,0,0)).fit()
+
+y_trend = predictions.predicted_mean[:start]
+ci_lower = summary["mean_ci_lower"]
+ci_upper = summary["mean_ci_upper"]
+
+
+y_cf = arima_cf.get_forecast(24, exog=df["T"][start:]).summary_frame(alpha=0.05)
+
+y_new_trend = predictions.predicted_mean[start:]
+
+# Plot
+plt.style.use('seaborn-whitegrid')
+fig, ax = plt.subplots(figsize=(16,10))
+
+ax.scatter(df["T"], df["Y"], facecolors='none', edgecolors='steelblue', label="data", linewidths=2)
+ax.plot(df["T"][:start], ci_upper[:start], 'k--')
+ax.plot(df["T"][:start], y_trend[:start], 'k.-', label="pre-intervention trend")
+ax.plot(df["T"][:start], ci_lower[:start], 'k--')
+ax.plot(df["T"][start:], y_cf["mean"], 'k.', label="counterfactual")
+ax.fill_between(df["T"][start:], y_cf['mean_ci_lower'], y_cf['mean_ci_upper'], color='k', alpha=0.1);
+ax.plot(df["T"][start:], ci_upper[start:], 'g--')
+ax.plot(df["T"][start:], y_new_trend, 'g.-', label="pos-intervention trend")
+ax.plot(df["T"][start:], ci_lower[start:], 'g--')
+ax.axvline(x = 24.5, color = 'r', label = 'intervention')
+ax.legend(loc='best')
+plt.ylim([10, 15])
+plt.xlabel("Weeks")
+plt.ylabel("Bounce rate (%)");
+```
+</p>
+</details>
+
+
+<p align="center">
+    <picture>
+        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/data_trends2.webp" class="lazyload" alt="arima pre and post intervention modeling with counterfactual" width="100%" style="box-shadow: 5px 5px 10px grey;">
+        <img data-src="{{ site.url }}/assets/images/its/data_trends2.png" class="lazyload" alt="arima pre and post intervention modeling with counterfactual" width="100%" style="box-shadow: 5px 5px 10px grey;">
     </picture>
 </p>
 
