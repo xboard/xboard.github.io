@@ -222,16 +222,24 @@ y_new_trend = predictions.predicted_mean[start:]
 plt.style.use('seaborn-whitegrid')
 fig, ax = plt.subplots(figsize=(16,10))
 
-ax.scatter(df["T"], df["Y"], facecolors='none', edgecolors='steelblue', label="data", linewidths=2)
-ax.plot(df["T"][:start], ci_upper[:start], 'k--')
-ax.plot(df["T"][:start], y_trend[:start], 'k.-', label="pre-intervention trend")
-ax.plot(df["T"][:start], ci_lower[:start], 'k--')
+# Plot bounce rate data
+ax.scatter(df["T"], df["Y"], facecolors='none', edgecolors='steelblue', label="bounce rate data", linewidths=2)
+
+# Plot pre-intervation mean bounce rate with 95% confidence interval
+ax.plot(df["T"][:start], y_trend[:start], 'b.-', label="pre-intervention fit")
+ax.fill_between(df["T"][:start], ci_lower[:start], ci_upper[:start], color='b', alpha=0.1, label="pre-intervention 95% CI");
+
+# Plot counterfactual mean bounce rate with 95% confidence interval
 ax.plot(df["T"][start:], cf['mean'], 'k.', label="counterfactual")
 ax.fill_between(df["T"][start:], cf['mean_ci_lower'], cf['mean_ci_upper'], color='k', alpha=0.1);
-ax.plot(df["T"][start:], ci_upper[start:], 'g--')
-ax.plot(df["T"][start:], y_new_trend, 'g.-', label="pos-intervention trend")
-ax.plot(df["T"][start:], ci_lower[start:], 'g--')
+
+# Plot pos-intervation mean bounce rate with 95% confidence interval
+ax.plot(df["T"][start:], y_new_trend, 'g.-', label="pos-intervention fit")
+ax.fill_between(df["T"][start:], ci_lower[start:], ci_upper[start:], color='g', alpha=0.1, label="pos-intervention 95% CI");
+
+# Plot line marking intervention moment
 ax.axvline(x = 24.5, color = 'r', label = 'intervention')
+
 ax.legend(loc='best')
 plt.ylim([10, 15])
 plt.xlabel("Weeks")
@@ -286,9 +294,10 @@ hypothesis ($H_0$).
     </picture>
 </p>
 
-Which for a small dataset (less than 50 points) looks quite gaussian. 
+Which for a small dataset (less than 50 points) looks sufficiently gaussian. 
 
-The assumption of normality of residuals is being met ✅.
+
+Overall the assumption of normality of residuals can't be convincingly refuted ✅.
 
 #### Checking independence of observations:
 
@@ -408,6 +417,11 @@ plt.show()
     </picture>
 </p>
 
+### Model selection
+
+The theory states that in an autoregressive model its autocorrelation plot should depict an exponential decay and the number of lags $p$
+should be taken from the partial autocorrelation chart using its $p$ most relevant lags. Applying the theory to our plots above we conclude that
+our model is autoregressive of lag 1 also known as AR(1).
 
 ### ARIMA 
 
@@ -450,7 +464,10 @@ Prob(H) (two-sided):                  0.47   Kurtosis:                         3
 ===================================================================================
 ```
 
-Analysis...
+The autoregressive model estimates that the bounce rate decreased 🔻 0.55% on average and this effect
+is statistically significant ($P>|t| = 4.4\\% $, less than our $\alpha = 5\\% $) meaning the bounce rates drops from 12.91 + 24 * 0.0121 = 13.20% to 12.65%. However, unlike the previous OLS model the autoregressive model doesn't estimates a statistical significance trend of decrease in bounce rate each week after intervention which is in line with our expectations. 
+
+The models estimates (with counterfactual projection) can be seen in the chart bellow:
 
 <details>
 <summary>Click to see code.</summary>
@@ -478,16 +495,24 @@ y_new_trend = predictions.predicted_mean[start:]
 plt.style.use('seaborn-whitegrid')
 fig, ax = plt.subplots(figsize=(16,10))
 
-ax.scatter(df["T"], df["Y"], facecolors='none', edgecolors='steelblue', label="data", linewidths=2)
-ax.plot(df["T"][:start], ci_upper[:start], 'k--')
-ax.plot(df["T"][:start], y_trend[:start], 'k.-', label="pre-intervention trend")
-ax.plot(df["T"][:start], ci_lower[:start], 'k--')
+# Plot bounce rate data
+ax.scatter(df["T"], df["Y"], facecolors='none', edgecolors='steelblue', label="bounce rate data", linewidths=2)
+
+# Plot pre-intervation mean bounce rate with 95% confidence interval
+ax.plot(df["T"][:start], y_trend[:start], 'b.-', label="pre-intervention fit")
+ax.fill_between(df["T"][:start], ci_lower[:start], ci_upper[:start], color='b', alpha=0.1, label="pre-intervention 95% CI");
+
+# Plot counterfactual mean bounce rate with 95% confidence interval
 ax.plot(df["T"][start:], y_cf["mean"], 'k.', label="counterfactual")
-ax.fill_between(df["T"][start:], y_cf['mean_ci_lower'], y_cf['mean_ci_upper'], color='k', alpha=0.1);
-ax.plot(df["T"][start:], ci_upper[start:], 'g--')
-ax.plot(df["T"][start:], y_new_trend, 'g.-', label="pos-intervention trend")
-ax.plot(df["T"][start:], ci_lower[start:], 'g--')
+ax.fill_between(df["T"][start:], y_cf['mean_ci_lower'], y_cf['mean_ci_upper'], color='k', alpha=0.1, label="counterfactual 95% CI");
+
+# Plot pos-intervation mean bounce rate with 95% confidence interval
+ax.plot(df["T"][start:], y_new_trend, 'g.-', label="pos-intervention fit")
+ax.fill_between(df["T"][start:], ci_lower[start:], ci_upper[start:], color='g', alpha=0.1, label="pos-intervention 95% CI");
+
+# Plot line marking intervention moment
 ax.axvline(x = 24.5, color = 'r', label = 'intervention')
+
 ax.legend(loc='best')
 plt.ylim([10, 15])
 plt.xlabel("Weeks")
@@ -504,16 +529,41 @@ plt.ylabel("Bounce rate (%)");
     </picture>
 </p>
 
-[TODO]::
-
-Comment char: Level and trend change. Describe how to compute after trend values (summing previous with new one) 
+We can clearly see that the ARIMA(1, 0, 0) model fits our dataset better than the OLS model. 
 
 
 ### ARIMA residual analysis
 
-[TODO]::
 
-Verify that residuals are normally distributed and independent.
+Let's now take a look at residuals [qqplot](https://data.library.virginia.edu/understanding-q-q-plots/) to check if they follow a normal distribution:
+
+<details>
+<summary>Click to see code.</summary>
+<p>
+
+```python
+
+import scipy as sp
+from statsmodels.graphics.gofplots import qqplot
+fig, (ax1, ax2) = plt.subplots(1,2, figsize=(16,8))
+sm.qqplot(res.resid, sp.stats.t, fit=True, line="45", ax=ax1);
+ax1.set_title("OLS qqplot");
+sm.qqplot(arima_results.resid, sp.stats.t, fit=True, line="45", ax=ax2);
+ax2.set_title("ARIMA qqplot");
+plt.show();
+
+```
+</p>
+</details>
+
+<p align="center">
+    <picture>
+        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/qqplot-sidebyside.webp" class="lazyload" alt="qqplots" width="80%" style="box-shadow: 5px 5px 10px grey;">
+        <img data-src="{{ site.url }}/assets/images/its/qqplot-sidebyside.jpg" class="lazyload" alt="qqplots" width="80%" style="box-shadow: 5px 5px 10px grey;">
+    </picture>
+</p>
+
+We may observe that the ARIMA(1,0,0) model residuals not only are in general normally distributed as they fit better than the OLS model the theoretical quantiles. 
 
 ## Conclusion
 
