@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Interrupted Time Series (ITS) In Python"
+title: "Interrupted Time Series (ITS) in Python"
 description: "Interrupted Time Series (ITS) analysis using Python and statsmodels"
 date: 2021-12-30 06:00:00
 image: https://www.xboard.dev/assets/images/its/its-card.png
