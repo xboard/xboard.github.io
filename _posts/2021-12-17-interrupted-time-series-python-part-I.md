@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Interrupted Time Series (ITS) In Python"
-description: "Interrupted Time Series (ITS) Analysis Using Python"
+description: "Interrupted Time Series (ITS) analysis using Python and statsmodels"
 date: 2021-12-30 06:00:00
 image: https://www.xboard.dev/assets/images/its/its-card.png
 tags: [data-science]
@@ -10,8 +10,8 @@ mathjax: trues
 
 <p align="center">
     <picture>
-        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/its-card.webp" class="lazyload" alt="gold standard meme" width="100%">
-        <img src="{{ site.url }}/assets/images/its/its-card.png" alt="gold standard meme" width="100%">
+        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/its-card.webp" class="lazyload" alt="Interrupted Time Series Analysis" width="100%">
+        <img src="{{ site.url }}/assets/images/its/its-card.png" alt="Interrupted Time Series Analysis" width="100%">
     </picture>
  </p>
 
@@ -55,8 +55,8 @@ Interrupted time series (ITS) is a method of statistical analysis involving trac
 
 <p align="center">
     <picture>
-        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/its1.webp" class="lazyload" alt="gold standard meme" width="100%" style="box-shadow: 5px 5px 10px grey;">
-        <img data-src="{{ site.url }}/assets/images/its/its1.jpg" class="lazyload" alt="ITS example" width="100%" style="box-shadow: 5px 5px 10px grey;">
+        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/its1.webp" class="lazyload" alt="Interrupted Time Series analysis example" width="100%" style="box-shadow: 5px 5px 10px grey;">
+        <img data-src="{{ site.url }}/assets/images/its/its1.jpg" class="lazyload" alt="Interrupted Time Series analysis example" width="100%" style="box-shadow: 5px 5px 10px grey;">
     </pictures>
 </p>
 
@@ -98,7 +98,7 @@ With $\epsilon$ representing a zero centered gaussian random error.
 
 <p align="center">
     <picture>
-        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/matrix-red-blue-pill.webp" class="lazyload" alt="gold standard meme" width="100%">
+        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/matrix-red-blue-pill.webp" class="lazyload" alt="matrix blue/red pill choice of reality" width="100%">
         <img data-src="{{ site.url }}/assets/images/its/matrix-red-blue-pill.png" class="lazyload" alt="matrix blue/red pill choice of reality" width="100%">
     </picture>
     <i>What would have happened had Neo chosen the blue pill?</i>
@@ -121,7 +121,7 @@ Bob runs a large and successful blog on personal finance. During an webinar he l
 
 ### Dataset
 
-Bob provides us with 24 weeks of [data](/assets/data/its/enriched_data.csv) before adding the CDN and 24 weeks after it (intervention). Therefore weeks 1 to 24 have bouncing rate before intervention and weeks 25 to 48 after it. 
+Bob provides us with [🗒️ 24 weeks of data](/assets/data/its/enriched_data.csv) before adding the CDN and 24 weeks after it (intervention). Therefore weeks 1 to 24 have bouncing rate before intervention and weeks 25 to 48 after it. 
 
 <p align="center">
     <picture>
@@ -133,7 +133,7 @@ Optically it looks like after enabling the CDN the bounce rate decreased but by 
 
 ### Dataset preparation
 
-Using equation \eqref{eq:its} notation we [enrich this data](/assets/data/its/raw_data.csv) with values for columns $D$ ($0$ = before intervention, $1$ after) and $P$ (number of weekes since intervention started):
+Using equation \eqref{eq:its} notation we [🗒️ enrich this data](/assets/data/its/raw_data.csv) with values for columns $D$ ($0$ = before intervention, $1$ after) and $P$ (number of weekes since intervention started):
 
 | Bouncing rate<br/>(Y) | Week <br/>(T) | Intervention<br/>(D) | Intervention week<br/>(P) |
 | :-------------------: | :-----------: | :------------------: | :-----------------: |
@@ -195,7 +195,7 @@ Kurtosis:                       2.172   Cond. No.                         125.
 </pre>
 
 The model estimates that the bounce rate decreased 🔻 0.52% and this effect
-is statistically significant ($P>|t|$ is virtually zero). It is also noteworth that the model estimates a small (on average 🔻 0.0297%) but with statistical significance trend of a decrease in bounce rate each week. 
+is statistically significant ($P>|t|$ is virtually zero) meaning the bounce rates drops from 12.91 + 24 * 0.0129 = 13.22% to 12.70% . It is also noteworth that the model estimates a small (on average 🔻 0.0297%) but with statistical significance trend of a decrease in bounce rate each week after intervention, which is unexpected since the CDN serves the whole website just a few hour after activation. 
 
 Graphically:
 
@@ -244,8 +244,8 @@ plt.ylabel("Bounce rate (%)");
 
 <p align="center">
     <picture>
-        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/data_trends1.webp" class="lazyload" alt="gold standard meme" width="100%" style="box-shadow: 5px 5px 10px grey;">
-        <img data-src="{{ site.url }}/assets/images/its/data_trends1.png" class="lazyload" alt="predicts the future forgets temporal autocorrelation meme" width="100%" style="box-shadow: 5px 5px 10px grey;">
+        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/data_trends1.webp" class="lazyload" alt="Interrupted Time Series using OLS with counterfactual and pos-intervention plots" width="100%" style="box-shadow: 5px 5px 10px grey;">
+        <img data-src="{{ site.url }}/assets/images/its/data_trends1.png" class="lazyload" alt="Interrupted Time Series using OLS with counterfactual and pos-intervention plots" width="100%" style="box-shadow: 5px 5px 10px grey;">
     </picture>
 </p>
 
@@ -253,12 +253,12 @@ plt.ylabel("Bounce rate (%)");
 
 <p align="center">
     <picture>
-        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/autocorrelation_future_meme.webp" class="lazyload" alt="gold standard meme" width="67%">
+        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/autocorrelation_future_meme.webp" class="lazyload" alt="predicts the future forgets temporal autocorrelation meme" width="67%">
         <img data-src="{{ site.url }}/assets/images/its/autocorrelation_future_meme.jpg" class="lazyload" alt="predicts the future forgets temporal autocorrelation meme" width="67%">
     </picture>
 </p>
 
-One of the main assumptions in OLS (Ordinary Least Squares) regression is that:
+OLS (Ordinary Least Squares) regression have [seven mains assumptions](https://www.datasciencecentral.com/profiles/blogs/7-classical-assumptions-of-ordinary-least-squares-ols-linear) but for brevity in this artice we will focus on two only:
 
 - Individual observations are *independent*.
 - Residuals follow a normal distribution.
@@ -411,7 +411,8 @@ plt.show()
 
 ### ARIMA 
 
-WIP
+[TODO]::
+AR as especial case of ARIMA. AR(1) ~ ARIMA(1,0,0). ARIMA as a special case of SARIMA that is used by statsmodel. 
 
 ```python
 from statsmodels.tsa.arima.model import ARIMA
@@ -503,11 +504,23 @@ plt.ylabel("Bounce rate (%)");
     </picture>
 </p>
 
-Comments...
+[TODO]::
+
+Comment char: Level and trend change. Describe how to compute after trend values (summing previous with new one) 
+
+
+### ARIMA residual analysis
+
+[TODO]::
+
+Verify that residuals are normally distributed and independent.
 
 ## Conclusion
 
-WIP
+[TODO]::
+
+Recaputlate all the important topics presented here.
+
 
 
 <span id="chegou-no-fim"></span>
@@ -517,3 +530,4 @@ WIP
 <a name="ref-1" href="https://shopify.engineering/using-quasi-experiments-counterfactuals" target="blank" rel="noopener">[1] Shopify Engineering: How to Use Quasi-experiments and Counterfactuals to Build Great Products.</a>
 
 <a name="ref-2" href="https://en.wikipedia.org/wiki/Interrupted_time_series" target="blank" rel="noopener">[2] Wikipedia: Interrupted Time Series.</a>
+
