@@ -10,8 +10,8 @@ mathjax: trues
 
 <p align="center">
     <picture>
-        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/its-card.webp" class="lazyload" alt="Interrupted Time Series Analysis" width="100%">
-        <img src="{{ site.url }}/assets/images/its/its-card.png" alt="Interrupted Time Series Analysis" width="100%">
+        <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/its-card.webp" class="lazyload" alt="Interrupted Time Series Analysis example" width="100%">
+        <img src="{{ site.url }}/assets/images/its/its-card.png" alt="Interrupted Time Series Analysis example" width="100%">
     </picture>
  </p>
 
