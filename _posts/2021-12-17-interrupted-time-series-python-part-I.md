@@ -108,8 +108,7 @@ In a ITS it is important to understand the counterfactual. The counterfactual re
 
 ---
 
-📝
-Counterfactuals are simply ways of comparing what happens given a change, versus what should have happened had some change not occurred in the first place.
+📝Counterfactuals are simply ways of comparing what happens given a change, versus what should have happened had some change not occurred in the first place.
 
 ---
 
@@ -341,7 +340,11 @@ rules + residual_plot
 
 Notice how residuals above/bellow zero have most points temporally close to it also above/bellow zero as well which goes against the independence of observations assumption of OLS ❌. 
 
-In practice when analyzing time series data the presence of autocorrelation is the rule instead of the exception since in general the factors that contributed to a given observation tend to persist for a while.
+---
+
+📝In practice when analyzing time series data the presence of autocorrelation is the rule instead of the exception since in general the factors that contributed to a given observation tend to persist for a while.
+
+---
 
 ## Autoregressive model solution
 
@@ -391,11 +394,8 @@ plt.show()
 
 #### Partial Autocorrelation
 
----
+The partial autocorrelation at lag k is the correlation that results after removing the effect of any correlations due to the terms at shorter lags.
 
-📝 The partial autocorrelation at lag k is the correlation that results after removing the effect of any correlations due to the terms at shorter lags.
-
----
 
 
 <details>
