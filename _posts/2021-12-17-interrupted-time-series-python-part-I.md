@@ -2,7 +2,7 @@
 layout: post
 title: "Interrupted Time Series (ITS) in Python"
 description: "Interrupted Time Series (ITS) analysis using Python and statsmodels"
-date: 2021-12-31 06:00:00
+date: 2022-01-01 06:00:00
 image: https://www.xboard.dev/assets/images/its/its-card.png
 tags: [data-science]
 mathjax: trues
@@ -14,6 +14,8 @@ mathjax: trues
         <img src="{{ site.url }}/assets/images/its/its-card.png" alt="Interrupted Time Series Analysis example" width="100%">
     </picture>
  </p>
+
+## Motivation
 
 ### When A/B test is not an option
 
@@ -47,11 +49,11 @@ However sometimes it's just not possible to set up an A/B test:
 
 If you can't do an A/B test then the second to best alternative are quasi experiments [[1]](#ref-1).
 
-In a quasi experiment your treatment and control group are not divided by a completely random process but by a natural process (i.e time, location, etc) therefore there is a much larger chance for imbalance due to skewness and heterogeneous differences. The results of a quasi-experiment won’t be as precise as an A/B, but if carefully conducted could be considered close enough to compute estimates.
+In a quasi experiment your treatment and control group are not divided by a completely random process but by a natural process (i.e time, location, etc) therefore there is a much larger chance for imbalance due to skewness and heterogeneous differences. The results of a quasi-experiment won’t be as precise as an A/B, but if carefully conducted could be considered close enough to compute estimates, but as exemplified above some times even a different control group cannot be afforded and these are scenarios when Interrupted Times Series comes in very handy.
 
 ## Interrupted Time Series (ITS)
 
-Interrupted time series (ITS) is a method of statistical analysis involving tracking a long-term period before and after a point of intervention to assess the intervention's effects. The time series refers to the data over the period, while the interruption is the intervention, which is a controlled external influence or set of influences. Effects of the intervention are evaluated by changes in the level and slope of the time series and statistical significance of the intervention parameters[[2]](#ref-2). The more observations you have on both sides of the intervention the more robust your model will be (typically).
+Interrupted time series (ITS) is a method of statistical analysis involving tracking a period before and after a intervention at a known point in time to assess the intervention's effects _within a single group/population_. The time series refers to the data over the period, while the interruption is the intervention, which is a controlled external influence or set of influences. Effects of the intervention are evaluated by changes in the level and slope of the time series and statistical significance of the intervention parameters[[2]](#ref-2). The more observations you have on both sides of the intervention the more robust your model will be (typically). Because the evaluation is based on observing a single population over time, the ITS design is free from problems due to between-group difference but are suceptible to time-varying cofounders like other intervetions occurring around the time of the intervetion that may also affect the outcome[[3]](#ref-3).
 
 <p align="center">
     <picture>
@@ -425,8 +427,9 @@ our model is autoregressive of lag 1 also known as AR(1).
 
 ### ARIMA 
 
-[TODO]::
-AR as especial case of ARIMA. AR(1) ~ ARIMA(1,0,0). ARIMA as a special case of SARIMA that is used by statsmodel. 
+In statistics [ARIMA](https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average) stands for **autoregressive integrated moving average** model and as can be depreended by the name AR models are as especial case of ARIMA therefore AR(1) is equivalent to ARIMA(1,0,0). 
+
+We can model an AR(1) process to our dataset using `statsmodel` ARIMA as bellow:
 
 ```python
 from statsmodels.tsa.arima.model import ARIMA
@@ -567,11 +570,14 @@ We may observe that the ARIMA(1,0,0) model residuals not only are in general nor
 
 ## Conclusion
 
-[TODO]::
+A/B tests are a the most powerful and trustworthy method to do measure the impact of modifications/changes even before they are fully implemented which is why they are so widely used. 
+However there are some scenarios where A/B tests are not feasible and this is when the knoledge of quasi-experiments becomes valuable to get statisticaly sound  measurements of change impact.
 
-Recaputlate all the important topics presented here.
+In this post we have shown why a ordinary least square (OLS) linear regression is not a good modeling approach for time series data since they usualy present non-neglitible autocorrelation that violates some assumptions of OLS.
 
+We demonstrated with an example how to use python (`statsmodel`, `matplotlib`, `altair` and `pandas`) to visualize residuals and plot autocorrelation and partial autocorrelations charts to figure out the lag of an autoregressive model and then implemented a ARIMA model using statsmodel to observed a more accurate and precise analysis and how to interpret `statsmodel` model output for OLS and ARIMA.
 
+We also shown how to plot in a single chart the models estimates (mean and 95% confidence interval) for the time periods before and after intervention and respective counterfactual.
 
 <span id="chegou-no-fim"></span>
 
@@ -581,3 +587,4 @@ Recaputlate all the important topics presented here.
 
 <a name="ref-2" href="https://en.wikipedia.org/wiki/Interrupted_time_series" target="blank" rel="noopener">[2] Wikipedia: Interrupted Time Series.</a>
 
+<a name="ref-3" href="https://scholar.google.com/scholar_lookup?title=Experimental%20and%20Quasi-experimental%20Designs%20for%20Research&author=DT%20Campbell&author=JC%20Stanley&publication_year=1963&book=Experimental%20and%20Quasi-experimental%20Designs%20for%20Research" target="blank" rel="noopener">[3] Campbell DT, Stanley JC. Experimental and Quasi-experimental Designs for Research. Boston, MA: Houghton Mifflin, 1963.</a>
