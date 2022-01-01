@@ -6,7 +6,6 @@
     <a href="{{ "/feed.xml" | prepend: site.baseurl }}">
       <picture>
         <source type="image/webp" srcset="/assets/tiger-dragon.webp" width="40">
-        <source type="image/jpeg" srcset="/assets/tiger-dragon.jpg" width="40">
         <img src="/assets/tiger-dragon.jpg" width="40">
       </picture>
       
@@ -31,8 +30,6 @@
         {% for page in site.pages %}
           {% if page.title %}<a class="page-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>{% endif %}
         {% endfor %}
-      </div>
-      <div class="trigger">
         {% if site.bio_domain %}
           <a class="page-link" href="http://{{ site.bio_domain }}" target="_blank" rel="noopener">
             <svg width="16" height="16" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -569,8 +569,6 @@ th, td {
   }
 
   .site-nav {
-    position: absolute;
-    width: 100%;
     z-index: 10;
     top: 14px;
     right: 8px;
