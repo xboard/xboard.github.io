@@ -563,12 +563,14 @@ th, td {
 }
 
 @media screen and (max-width: 600px) {
+  
   .wrap {
-    padding: 0 12px;
+    padding: 0 5px;
   }
 
   .site-nav {
-    position: fixed;
+    position: absolute;
+    width: 100%;
     z-index: 10;
     top: 14px;
     right: 8px;

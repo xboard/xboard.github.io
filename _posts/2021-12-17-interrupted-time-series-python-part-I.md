@@ -355,8 +355,7 @@ The autoregressive model specifies that each observation depends linearly on pre
 Thus, an autoregressive model of order $p$ ($AR(p)$) can be written as
 
 \begin{equation}
-y_t = c + \phi_1 y_{t-1} + \phi_2 y_{t-2} + \dots + \phi_2 y_{t-2} + \epsilon_t
-\label{eq:ar}
+y_t = c + \phi_1 y_{t-1}+ \dots + \phi_p y_{t-p} + \epsilon_t
 \end{equation}
 
 Where:
