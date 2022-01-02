@@ -23,7 +23,7 @@ The gold standard for statistically assert the effectiveness of an intervention 
 
 ---
 
-📝 During A/B test there are simulataneouly running two almost identical versions of a product that only differ by the hypothesis you want to test (i.e can a red call to action button convert more then a blue one?). Users are **randomly** chosen to experience one (and only one) of the two versions while the experiment is active.
+📝 During an A/B test there are two almost identical versions of a product, simulataneouly running, that only differ by the hypothesis you want to test ( i.e can a red call to action button convert more than a blue one? ). Users are **randomly** chosen to experience one (and only one) of the two versions while the experiment is active.
 
 ---
 
@@ -31,11 +31,11 @@ They are easy to understand, easy to setup (great free [tools](https://optimize.
 
 However sometimes it's just not possible to set up an A/B test:
 
-- Techinical difficult. Sometimes a chage is so widespread and complex that would be technically infeasible to keep two different versions running simultaneouly.
+- Techinical difficult. Sometimes a change is so widespread and complex that would be technically infeasible to keep two different versions running simultaneouly.
 - Business strategy. A new feature rollout will be available first to some countries and later for others.
-- Ethical concerns. Having a subset of your customers to a feature or bug fixe that gives them an competitive advantage over the others
-- Legal or regulatory requirements. A change in regulations becomes mandatory (i.e GPDR compliance) and should be applied to all your customers of a given country at the same time.
-- Temporal infeasibility. You want to analyze an event that already happened (i.e How last [Google's search algorithm update](https://moz.com/google-algorithm-change) impacted your sales funnel?).
+- Ethical concerns. Having a subset of customers having access to a feature or bug fix that gives them an competitive advantage over the others that don't.
+- Legal or regulatory requirements. A change in regulations becomes mandatory ( i.e GPDR compliance ) and should be applied to all your customers of a given country at the same time.
+- Temporal infeasibility. You want to analyze an event that already happened ( i.e How last [Google's search algorithm update](https://moz.com/google-algorithm-change) impacted your sales funnel? ).
 
 
 ## Quasi Experiments
@@ -49,7 +49,9 @@ However sometimes it's just not possible to set up an A/B test:
 
 If you can't do an A/B test then the second to best alternative are quasi experiments [[1]](#ref-1).
 
-In a quasi experiment your treatment and control group are not divided by a completely random process but by a natural process (i.e time, location, etc) therefore there is a much larger chance for imbalance due to skewness and heterogeneous differences. The results of a quasi-experiment won’t be as precise as an A/B, but if carefully conducted could be considered close enough to compute estimates, but as exemplified above some times even a different control group cannot be afforded and these are scenarios when Interrupted Times Series comes in very handy.
+In a quasi experiment your treatment and control group are not divided by a completely random process but by a natural process (i.e time, location, etc) therefore there is a much larger chance for imbalance due to skewness and heterogeneous differences. The results of a quasi-experiment won’t be as precise as an A/B, but if carefully conducted could be considered close enough to compute estimates. 
+
+There are some scenarios, like some described in the previous section, where having a control group in parallel to a test group is just not possible and this is when Interrupted Times Series comes in very handy.
 
 ## Interrupted Time Series (ITS)
 
