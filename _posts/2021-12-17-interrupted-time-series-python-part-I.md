@@ -132,11 +132,11 @@ Bob provides us with [🗒️ 24 weeks of data](/assets/data/its/enriched_data.c
     </picture>
 </p>
 
-Optically it looks like after enabling the CDN the bounce rate decreased but by how much and it has statistical significance? To answer this question using interrupted time series analysis we first need to prepare our data.
+Visually it looks like after enabling the CDN the bounce rate decreased but by how much and it has statistical significance? To answer this question using interrupted time series analysis we first need to prepare our data.
 
 ### Dataset preparation
 
-Using equation \eqref{eq:its} notation we [🗒️ enrich this data](/assets/data/its/raw_data.csv) with values for columns $D$ ($0$ = before intervention, $1$ after) and $P$ (number of weekes since intervention started):
+Using equation \eqref{eq:its} notation we [🗒️ enrich this data](/assets/data/its/raw_data.csv) with values for columns $D$ ($0$ = before intervention, $1$ after) and $P$ (number of weeks since intervention started):
 
 | Bouncing rate<br/>(Y) | Week <br/>(T) | Intervention<br/>(D) | Intervention week<br/>(P) |
 | :-------------------: | :-----------: | :------------------: | :-----------------: |
