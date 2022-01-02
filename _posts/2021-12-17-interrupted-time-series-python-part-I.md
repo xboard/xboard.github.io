@@ -206,7 +206,7 @@ is statistically significant ($P>|t|$ is virtually zero).
 
 It is also noteworth that the model estimates a small (on average 🔻 0.0297%) but with statistical significance trend of a decrease in bounce rate each week after intervention, which is unexpected since the CDN serves the whole website just a few hours after activation. 
 
-The figure bellow depicts how the model fits before and after intervention and how it project a counterfactual would be:
+The figure below depicts how the model fits before and after intervention and how it project a counterfactual would be:
 
 <details>
     <summary>Click to see code.</summary>
@@ -350,7 +350,7 @@ rules + residual_plot
     </picture>
 </p>
 
-Notice how residuals above/bellow zero have most points temporally close to it also above/bellow zero as well, which goes against the independence of observations assumption of OLS ❌. 
+Notice how residuals above/below zero have most points temporally close to it also above/below zero as well, which goes against the independence of observations assumption of OLS ❌. 
 
 ---
 
@@ -383,7 +383,7 @@ $\epsilon_t$: white noise ( $\mathcal{N}(0, \sigma²)$ ) at time $t$.
 
 #### Autocorrelation
 
-To assess how much an observation correlates with past observations it is useful to do an autocorrelation plot as shown bellow:
+To assess how much an observation correlates with past observations it is useful to do an autocorrelation plot as shown below:
 
 <details>
 <summary>Click to see code.</summary>
@@ -438,7 +438,7 @@ our model is autoregressive of lag 1 also known as AR(1).
 
 In statistics [ARIMA](https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average) stands for **autoregressive integrated moving average** model and as can be inferred by the name AR models are as especial case of ARIMA therefore AR(1) is equivalent to ARIMA(1,0,0). 
 
-We can model an AR(1) process to our dataset using `statsmodels` ARIMA as bellow:
+We can model an AR(1) process to our dataset using `statsmodels` ARIMA as below:
 
 ```python
 from statsmodels.tsa.arima.model import ARIMA
