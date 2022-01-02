@@ -136,7 +136,7 @@ Bob provides us with [🗒️ 24 weeks of data](/assets/data/its/raw_data.csv) b
     </picture>
 </p>
 
-Visually, it looks like after enabling the CDN the bounce rate decreased, but by how much, and does it have statistical significance? To answer this question using interrupted time series analysis we first need to prepare our data.
+Visually, it looks like after enabling the CDN the bounce rate decreased, but by how much, and does it have statistical significance? To answer this question using interrupted time series analysis, we first need to prepare our data.
 
 ### Dataset preparation
 
