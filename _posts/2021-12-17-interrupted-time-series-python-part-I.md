@@ -202,7 +202,9 @@ Kurtosis:                       2.172   Cond. No.                         125.
 </pre>
 
 The model estimates that the bounce rate decreased 🔻 0.52% and this effect
-is statistically significant ($P>|t|$ is virtually zero) meaning the bounce rates drop from 12.91 + 24 * 0.0129 = 13.22% to 12.70% . It is also noteworth that the model estimates a small (on average 🔻 0.0297%) but with statistical significance trend of a decrease in bounce rate each week after intervention, which is unexpected since the CDN serves the whole website just a few hours after activation. 
+is statistically significant ($P>|t|$ is virtually zero). 
+
+It is also noteworth that the model estimates a small (on average 🔻 0.0297%) but with statistical significance trend of a decrease in bounce rate each week after intervention, which is unexpected since the CDN serves the whole website just a few hours after activation. 
 
 The figure bellow depicts how the model fits before and after intervention and how it project a counterfactual would be:
 
@@ -216,16 +218,20 @@ start = 24
 end = 48
 beta = res.params
 
+# Get model predictions and 95% confidence interval
 predictions = res.get_prediction(df)
 summary = predictions.summary_frame(alpha=0.05)
 
-y_trend = predictions.predicted_mean[:start]
-ci_lower = summary["obs_ci_lower"]
-ci_upper = summary["obs_ci_upper"]
+# mean predictions
+y_pred = predictions.predicted_mean
+
+# countefactual assumes no interventions
 cf_df = df.copy()
-cf_df["D"] = 0.0; cf_df["P"] = 0.0
-cf = res.get_prediction(exog=cf_df).summary_frame(alpha=0.05)
-y_new_trend = predictions.predicted_mean[start:]
+cf_df["D"] = 0.0
+cf_df["P"] = 0.0
+
+# counter-factual predictions
+cf = res.get_prediction(cf_df).summary_frame(alpha=0.05)
 
 # Plotting
 plt.style.use('seaborn-whitegrid')
@@ -234,15 +240,13 @@ fig, ax = plt.subplots(figsize=(16,10))
 # Plot bounce rate data
 ax.scatter(df["T"], df["Y"], facecolors='none', edgecolors='steelblue', label="bounce rate data", linewidths=2)
 
-# Plot pre-intervation mean bounce rate
-ax.plot(df["T"][:start], y_trend[:start], 'b.-', label="pre-intervention fit")
+# Plot model mean bounce rate prediction
+ax.plot(df["T"][:start], y_pred[:start], 'b-', label="model prediction")
+ax.plot(df["T"][start:], y_pred[start:], 'b-')
 
 # Plot counterfactual mean bounce rate with 95% confidence interval
 ax.plot(df["T"][start:], cf['mean'][start:], 'k.', label="counterfactual")
-ax.fill_between(df["T"][start:], cf['mean_ci_lower'][start:], cf['mean_ci_upper'][start:], color='k', alpha=0.1);
-
-# Plot pos-intervation mean bounce rate
-ax.plot(df["T"][start:], y_new_trend, 'g.-', label="pos-intervention fit")
+ax.fill_between(df["T"][start:], cf['mean_ci_lower'][start:], cf['mean_ci_upper'][start:], color='k', alpha=0.1, label="counterfactual 95% CI");
 
 # Plot line marking intervention moment
 ax.axvline(x = 24.5, color = 'r', label = 'intervention')
@@ -473,7 +477,9 @@ Prob(H) (two-sided):                  0.47   Kurtosis:                         3
 ```
 
 The autoregressive model estimates that the bounce rate decreased 🔻 0.55% on average and this effect
-is statistically significant ($P>|t| = 4.4\\% $, less than our $\alpha = 5\\% $) meaning the bounce rates drops from 12.91 + 24 * 0.0121 = 13.20% to 12.65%. However, unlike the previous OLS model, the autoregressive model does not estimate a statistical significance trend of a decrease in bounce rate each week after intervention, which is in line with our expectations. 
+is statistically significant ($P>|t| = 4.4\\% $, less than our $\alpha = 5\\% $).
+
+However, unlike the previous OLS model, the autoregressive model does not estimate a statistical significance trend of a decrease in bounce rate each week after intervention, which is in line with our expectations. 
 
 The models estimates (with counterfactual projections) can be seen in the chart below:
 
@@ -482,6 +488,9 @@ The models estimates (with counterfactual projections) can be seen in the chart 
 <p>
 
 ```python
+
+from statsmodels.tsa.arima.model import ARIMA
+
 start = 24
 end = 48
 
@@ -490,31 +499,27 @@ summary = predictions.summary_frame(alpha=0.05)
 
 arima_cf = ARIMA(df["Y"][:start], df["T"][:start], order=(1,0,0)).fit()
 
-y_trend = predictions.predicted_mean[:start]
-ci_lower = summary["mean_ci_lower"]
-ci_upper = summary["mean_ci_upper"]
+# Model predictions means
+y_pred = predictions.predicted_mean
 
-
+# Counterfactual mean and 95% confidence interval
 y_cf = arima_cf.get_forecast(24, exog=df["T"][start:]).summary_frame(alpha=0.05)
 
-y_new_trend = predictions.predicted_mean[start:]
-
-# Plot
+# Plot section
 plt.style.use('seaborn-whitegrid')
 fig, ax = plt.subplots(figsize=(16,10))
 
 # Plot bounce rate data
 ax.scatter(df["T"], df["Y"], facecolors='none', edgecolors='steelblue', label="bounce rate data", linewidths=2)
 
-# Plot pre-intervation mean bounce rate
-ax.plot(df["T"][:start], y_trend[:start], 'b.-', label="pre-intervention fit")
+# Plot model mean bounce prediction
+ax.plot(df["T"][:start], y_pred[:start], 'b-', label="model prediction")
+ax.plot(df["T"][start:], y_pred[start:], 'b-')
 
 # Plot counterfactual mean bounce rate with 95% confidence interval
 ax.plot(df["T"][start:], y_cf["mean"], 'k.', label="counterfactual")
 ax.fill_between(df["T"][start:], y_cf['mean_ci_lower'], y_cf['mean_ci_upper'], color='k', alpha=0.1, label="counterfactual 95% CI");
 
-# Plot pos-intervation mean bounce
-ax.plot(df["T"][start:], y_new_trend, 'g.-', label="pos-intervention fit")
 
 # Plot line marking intervention moment
 ax.axvline(x = 24.5, color = 'r', label = 'intervention')
