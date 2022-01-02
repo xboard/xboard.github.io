@@ -218,7 +218,9 @@ summary = predictions.summary_frame(alpha=0.05)
 y_trend = predictions.predicted_mean[:start]
 ci_lower = summary["obs_ci_lower"]
 ci_upper = summary["obs_ci_upper"]
-cf = cf_res.get_prediction(exog=df["T"][start:]).summary_frame(alpha=0.05)
+cf_df = df.copy()
+cf_df["D"] = 0.0; cf_df["P"] = 0.0
+cf = res.get_prediction(exog=cf_df).summary_frame(alpha=0.05)
 y_new_trend = predictions.predicted_mean[start:]
 
 # Plotting
@@ -228,17 +230,15 @@ fig, ax = plt.subplots(figsize=(16,10))
 # Plot bounce rate data
 ax.scatter(df["T"], df["Y"], facecolors='none', edgecolors='steelblue', label="bounce rate data", linewidths=2)
 
-# Plot pre-intervation mean bounce rate with 95% confidence interval
+# Plot pre-intervation mean bounce rate
 ax.plot(df["T"][:start], y_trend[:start], 'b.-', label="pre-intervention fit")
-ax.fill_between(df["T"][:start], ci_lower[:start], ci_upper[:start], color='b', alpha=0.1, label="pre-intervention 95% CI");
 
 # Plot counterfactual mean bounce rate with 95% confidence interval
-ax.plot(df["T"][start:], cf['mean'], 'k.', label="counterfactual")
-ax.fill_between(df["T"][start:], cf['mean_ci_lower'], cf['mean_ci_upper'], color='k', alpha=0.1);
+ax.plot(df["T"][start:], cf['mean'][start:], 'k.', label="counterfactual")
+ax.fill_between(df["T"][start:], cf['mean_ci_lower'][start:], cf['mean_ci_upper'][start:], color='k', alpha=0.1);
 
-# Plot pos-intervation mean bounce rate with 95% confidence interval
+# Plot pos-intervation mean bounce rate
 ax.plot(df["T"][start:], y_new_trend, 'g.-', label="pos-intervention fit")
-ax.fill_between(df["T"][start:], ci_lower[start:], ci_upper[start:], color='g', alpha=0.1, label="pos-intervention 95% CI");
 
 # Plot line marking intervention moment
 ax.axvline(x = 24.5, color = 'r', label = 'intervention')
@@ -502,17 +502,15 @@ fig, ax = plt.subplots(figsize=(16,10))
 # Plot bounce rate data
 ax.scatter(df["T"], df["Y"], facecolors='none', edgecolors='steelblue', label="bounce rate data", linewidths=2)
 
-# Plot pre-intervation mean bounce rate with 95% confidence interval
+# Plot pre-intervation mean bounce rate
 ax.plot(df["T"][:start], y_trend[:start], 'b.-', label="pre-intervention fit")
-ax.fill_between(df["T"][:start], ci_lower[:start], ci_upper[:start], color='b', alpha=0.1, label="pre-intervention 95% CI");
 
 # Plot counterfactual mean bounce rate with 95% confidence interval
 ax.plot(df["T"][start:], y_cf["mean"], 'k.', label="counterfactual")
 ax.fill_between(df["T"][start:], y_cf['mean_ci_lower'], y_cf['mean_ci_upper'], color='k', alpha=0.1, label="counterfactual 95% CI");
 
-# Plot pos-intervation mean bounce rate with 95% confidence interval
+# Plot pos-intervation mean bounce
 ax.plot(df["T"][start:], y_new_trend, 'g.-', label="pos-intervention fit")
-ax.fill_between(df["T"][start:], ci_lower[start:], ci_upper[start:], color='g', alpha=0.1, label="pos-intervention 95% CI");
 
 # Plot line marking intervention moment
 ax.axvline(x = 24.5, color = 'r', label = 'intervention')
