@@ -5,7 +5,7 @@ description: "Interrupted Time Series (ITS) analysis using Python and statsmodel
 date: 2022-01-01 06:00:00
 image: https://www.xboard.dev/assets/images/its/its-card2.jpg
 tags: [data-science]
-mathjax: trues
+mathjax: true
 ---
 
 <p align="center">
