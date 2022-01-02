@@ -3,7 +3,7 @@ layout: post
 title: "Interrupted Time Series (ITS) in Python"
 description: "Interrupted Time Series (ITS) analysis using Python and statsmodels"
 date: 2022-01-01 06:00:00
-image: https://www.xboard.dev/assets/images/its/its-card.png
+image: https://www.xboard.dev/assets/images/its/its-card2.jpg
 tags: [data-science]
 mathjax: trues
 ---
@@ -401,7 +401,7 @@ plt.show()
 
 #### Partial Autocorrelation
 
-The partial autocorrelation at lag k is the correlation that results after removing the effect of any correlations due to the terms at shorter lags.
+The partial autocorrelation at lag $p$ is the correlation that results after removing the effect of any correlations due to the terms at shorter lags.
 
 
 
@@ -540,6 +540,9 @@ We can clearly see that the ARIMA(1, 0, 0) model fits our dataset better than th
 
 ### ARIMA residual analysis
 
+The summary of our autoregressive model shows a `Prob(JB): 0.93` which is compatible with the null-hypothesis of normaly distributed residuals. ✅
+
+The [Ljung-Box Q test](https://en.wikipedia.org/wiki/Ljung%E2%80%93Box_test) verifies whether the residuals are independently distributed (they exhibit no serial autocorrelation) as $H_0$ (null-hypothesis). As the `Prob(Q): 0.32` is way above the standard $\alpha = 0.05$ there is no evidence of serial autocorrelation in the ARIMA residuals. ✅
 
 Let's now take a look at residuals [qqplot](https://data.library.virginia.edu/understanding-q-q-plots/) to check if they follow a normal distribution:
 
@@ -569,7 +572,7 @@ plt.show();
     </picture>
 </p>
 
-We may observe that the ARIMA(1,0,0) model residuals not only are in general normally distributed as they fit better than the OLS model the theoretical quantiles. 
+We may observe that the ARIMA(1,0,0) model residuals not only are in general normally distributed as they fit better than the OLS model the theoretical quantiles. ✅ 
 
 ## Conclusion
 
