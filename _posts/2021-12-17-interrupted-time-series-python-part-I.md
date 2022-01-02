@@ -59,7 +59,7 @@ There are some scenarios, like some described in the previous section, where hav
 
 ## Interrupted Time Series (ITS)
 
-Interrupted time series (ITS) is a method of statistical analysis involving tracking a period before and after a intervention at a known point in time to assess the intervention's effects _within a single group/population_. The time series refers to the data over the period, while the interruption is the intervention, which is a controlled external influence or set of influences. Effects of the intervention are evaluated by changes in the level and slope of the time series and statistical significance of the intervention parameters[[2]](#ref-2). The more observations you have on both sides of the intervention, the more robust your model will be (typically). Because the evaluation is based on observing a single population over time, the ITS design is free from problems due to between-group difference but are susceptible to time-varying confounders like other interventions occurring around the time of the intervention that may also affect the outcome[[3]](#ref-3).
+Interrupted time series (ITS) is a method of statistical analysis involving tracking a period before and after a intervention at a known point in time to assess the intervention's effects _within a single group/population_. The time series refers to the data over the period, while the interruption is the intervention, which is a controlled external influence or set of influences. Effects of the intervention are evaluated by changes in the level and slope of the time series and statistical significance of the intervention parameters[[2]](#ref-2). The more observations you have before and after the intervention, the more robust your model will be (typically). Because the evaluation is based on observing a single population over time, the ITS design is free from problems due to between-group difference but are susceptible to time-varying confounders like other interventions occurring around the time of the intervention that may also affect the outcome[[3]](#ref-3).
 
 <p align="center">
     <picture>
@@ -579,7 +579,7 @@ plt.show();
 
 We may observe that the ARIMA(1,0,0) model residuals not only are in general normally distributed as they fit better than the OLS model the theoretical quantiles. ✅ 
 
-## Conclusion
+## Summary
 
 A/B tests are a the most powerful and trustworthy method to do measure the impact of modifications/changes even before they are fully implemented, which is why they are so widely used. 
 
