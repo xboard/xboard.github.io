@@ -94,7 +94,7 @@ $T$ is a continous variable which indicates the time passed from start of the ob
 
 $D$ is a dummy variable indicating observation collected before ($D=0$) or after ($D=1$) the intervention;
 
-$P$ is a continuous variable indicating time passed since the intervention has occured (before intervation has occured $P$ is equal to $0$);
+$P$ is a continuous variable indicating time passed since the intervention has occured (before intervention has occured $P$ is equal to $0$);
 
 With $\epsilon$ representing a zero centered gaussian random error.
 
@@ -105,7 +105,7 @@ With $\epsilon$ representing a zero centered gaussian random error.
         <source type="image/webp" data-srcset="{{ site.url }}/assets/images/its/matrix-red-blue-pill.webp" class="lazyload" alt="matrix blue/red pill choice of reality" width="100%">
         <img data-src="{{ site.url }}/assets/images/its/matrix-red-blue-pill.png" class="lazyload" alt="matrix blue/red pill choice of reality" width="100%">
     </picture>
-    <i>What would have happened had Neo chosen the blue pill?</i>
+    <figcaption align="center"><i>What would have happened had Neo chosen the blue pill?</i></figcaption>
 </p>
 
 In a ITS it is important to understand the counterfactual. The counterfactual refers to what it would have occured to Y, had the policy intervention not happened.
@@ -153,7 +153,7 @@ Using equation \eqref{eq:its} notation we [🗒️ enrich this data](/assets/dat
 
 ## Naïve solution
 
-Let's implement a ordinary least squares (OLS) regression to measure the impact of our intervention:
+Let's implement a ordinary least squares (OLS) regression using `statsmodels` to measure the impact of our intervention:
 
 ```python
 import pandas as pd
@@ -200,7 +200,7 @@ Kurtosis:                       2.172   Cond. No.                         125.
 The model estimates that the bounce rate decreased 🔻 0.52% and this effect
 is statistically significant ($P>|t|$ is virtually zero) meaning the bounce rates drops from 12.91 + 24 * 0.0129 = 13.22% to 12.70% . It is also noteworth that the model estimates a small (on average 🔻 0.0297%) but with statistical significance trend of a decrease in bounce rate each week after intervention, which is unexpected since the CDN serves the whole website just a few hour after activation. 
 
-Graphically:
+The figure bellow depict how the model fits before and after intervention and how it project a counterfactual would be:
 
 <details>
     <summary>Click to see code.</summary>
