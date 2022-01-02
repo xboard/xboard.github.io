@@ -19,23 +19,27 @@ mathjax: trues
 
 ### When A/B test is not an option
 
-The gold standard for statistically assert the effectiveness of an intervention is the randomized controlled experiment and its simplified online variant: the A/B test.
+The gold standard for statistically asserting the effectiveness of an intervention is the randomized controlled experiment and its simplified online variant: the A/B test.
 
 ---
 
-📝 During an A/B test there are two almost identical versions of a product, simulataneouly running, that only differ by the hypothesis you want to test ( i.e can a red call to action button convert more than a blue one? ). Users are **randomly** chosen to experience one (and only one) of the two versions while the experiment is active.
+📝 During an A/B test there are two almost identical versions of a product, simultaneously running, that only differ by the hypothesis you want to test ( i.e can a red call to action button convert more than a blue one? ). Users are **randomly** chosen to experience one (and only one) of the two versions while the experiment is active.
 
 ---
 
 They are easy to understand, easy to setup (great free [tools](https://optimize.google.com/optimize/home/) easily available) and when correctly designed they rule out any covariate differences between the groups.
 
-However sometimes it's just not possible to set up an A/B test:
+However, sometimes it's just not possible to set up an A/B test:
 
-- Techinical difficult. Sometimes a change is so widespread and complex that would be technically infeasible to keep two different versions running simultaneouly.
+- Technical difficulties. Sometimes a change is so widespread and complex that it would be technically impossible to keep two different versions running simultaneously.
+  
 - Business strategy. A new feature rollout will be available first to some countries and later for others.
-- Ethical concerns. Having a subset of customers having access to a feature or bug fix that gives them an competitive advantage over the others that don't.
-- Legal or regulatory requirements. A change in regulations becomes mandatory ( i.e GPDR compliance ) and should be applied to all your customers of a given country at the same time.
-- Temporal infeasibility. You want to analyze an event that already happened ( i.e How last [Google's search algorithm update](https://moz.com/google-algorithm-change) impacted your sales funnel? ).
+
+- Ethical concerns. Having a subset of customers having access to a feature or bug fix that gives them a competitive advantage over others that don't.
+
+- Legal or regulatory requirements. A change in regulations becomes mandatory ( i.e. GPDR compliance ) and should be applied to all your customers of a given country at the same time.
+
+- Temporal infeasibility. You want to analyze an event that has already happened ( i.e. How last [Google's search algorithm update](https://moz.com/google-algorithm-change) impacted your sales funnel? ).
 
 
 ## Quasi Experiments
@@ -49,13 +53,13 @@ However sometimes it's just not possible to set up an A/B test:
 
 If you can't do an A/B test then the second to best alternative are quasi experiments [[1]](#ref-1).
 
-In a quasi experiment your treatment and control group are not divided by a completely random process but by a natural process (i.e time, location, etc) therefore there is a much larger chance for imbalance due to skewness and heterogeneous differences. The results of a quasi-experiment won’t be as precise as an A/B, but if carefully conducted could be considered close enough to compute estimates. 
+In a quasi experiment, your treatment and control group are not divided by a completely random process but by a natural process (i.e. time, location, etc) therefore there is a much larger chance for imbalance due to skewness and heterogeneous differences. The results of a quasi-experiment won’t be as precise as an A/B, but if carefully conducted could be considered close enough to compute estimates. 
 
-There are some scenarios, like some described in the previous section, where having a control group in parallel to a test group is just not possible and this is when Interrupted Times Series comes in very handy.
+There are some scenarios, like some described in the previous section, where having a control group in parallel to a test group is just not possible, and this is when Interrupted Times Series comes in very handy.
 
 ## Interrupted Time Series (ITS)
 
-Interrupted time series (ITS) is a method of statistical analysis involving tracking a period before and after a intervention at a known point in time to assess the intervention's effects _within a single group/population_. The time series refers to the data over the period, while the interruption is the intervention, which is a controlled external influence or set of influences. Effects of the intervention are evaluated by changes in the level and slope of the time series and statistical significance of the intervention parameters[[2]](#ref-2). The more observations you have on both sides of the intervention the more robust your model will be (typically). Because the evaluation is based on observing a single population over time, the ITS design is free from problems due to between-group difference but are suceptible to time-varying cofounders like other intervetions occurring around the time of the intervetion that may also affect the outcome[[3]](#ref-3).
+Interrupted time series (ITS) is a method of statistical analysis involving tracking a period before and after a intervention at a known point in time to assess the intervention's effects _within a single group/population_. The time series refers to the data over the period, while the interruption is the intervention, which is a controlled external influence or set of influences. Effects of the intervention are evaluated by changes in the level and slope of the time series and statistical significance of the intervention parameters[[2]](#ref-2). The more observations you have on both sides of the intervention, the more robust your model will be (typically). Because the evaluation is based on observing a single population over time, the ITS design is free from problems due to between-group difference but are susceptible to time-varying confounders like other interventions occurring around the time of the intervention that may also affect the outcome[[3]](#ref-3).
 
 <p align="center">
     <picture>
@@ -90,11 +94,11 @@ Where:
 
 $Y$ is the outcome variable;
 
-$T$ is a continous variable which indicates the time passed from start of the observational period;
+$T$ is a continuous variable which indicates the time passed from start of the observational period;
 
 $D$ is a dummy variable indicating observation collected before ($D=0$) or after ($D=1$) the intervention;
 
-$P$ is a continuous variable indicating time passed since the intervention has occured (before intervention has occured $P$ is equal to $0$);
+$P$ is a continuous variable indicating time passed since the intervention has occurred (before intervention has occurred $P$ is equal to $0$);
 
 With $\epsilon$ representing a zero centered gaussian random error.
 
@@ -108,7 +112,7 @@ With $\epsilon$ representing a zero centered gaussian random error.
     <figcaption align="center"><i>What would have happened had Neo chosen the blue pill?</i></figcaption>
 </p>
 
-In a ITS it is important to understand the counterfactual. The counterfactual refers to what it would have occured to Y, had the policy intervention not happened.
+In an ITS it is important to understand the counterfactual. The counterfactual refers to what it would have occurred to Y, had the policy intervention not happened.
 
 ---
 
@@ -116,15 +120,15 @@ In a ITS it is important to understand the counterfactual. The counterfactual re
 
 ---
 
-In a randomized trial or A/B test we know the counterfactual average outcome because the experiment withheld the intervention from the control group (which by randomization is more or less the same as the intervention group). A critical assumption in ITS is that the outcome of interest trend would remain unchanged in the absence of the intervention.
+In a randomized trial or A/B test we know the counterfactual average outcome because the experiment withheld the intervention from the control group (which by randomization is somewhat the same as the intervention group). A critical assumption in ITS is that the outcome of interest trend would remain unchanged in the absence of intervention.
 
 ## A practical example
 
-Bob runs a large and successful blog on personal finance. During an webinar he learns that making his web content load faster could reduce its [bounce rate](https://en.wikipedia.org/wiki/Bounce_rate) and therefore decides to signup for a [CDN](https://en.wikipedia.org/wiki/Content_delivery_network) service. It's been 6 months since he added a CDN to his blog and he wants to know if the investiment he did reduced the bounce rate.  
+Bob runs a large and successful blog on personal finance. During a webinar he learns that making his web content load faster could reduce its [bounce rate](https://en.wikipedia.org/wiki/Bounce_rate) and therefore decides to sign up for a [CDN](https://en.wikipedia.org/wiki/Content_delivery_network) service. It's been 6 months since he added a CDN to his blog and he wants to know if the investiment he did reduced the bounce rate.  
 
 ### Dataset
 
-Bob provides us with [🗒️ 24 weeks of data](/assets/data/its/enriched_data.csv) before adding the CDN and 24 weeks after it (intervention). Therefore weeks 1 to 24 have bouncing rate before intervention and weeks 25 to 48 after it. 
+Bob provides us with [🗒️ 24 weeks of data](/assets/data/its/enriched_data.csv) before adding the CDN and 24 weeks after it (intervention). Therefore, weeks 1 to 24 have a bouncing rate before intervention and weeks 25 to 48 after it. 
 
 <p align="center">
     <picture>
@@ -132,7 +136,7 @@ Bob provides us with [🗒️ 24 weeks of data](/assets/data/its/enriched_data.c
     </picture>
 </p>
 
-Visually it looks like after enabling the CDN the bounce rate decreased but by how much and it has statistical significance? To answer this question using interrupted time series analysis we first need to prepare our data.
+Visually, it looks like after enabling the CDN the bounce rate decreased, but by how much, and does it have statistical significance? To answer this question using interrupted time series analysis we first need to prepare our data.
 
 ### Dataset preparation
 
@@ -151,9 +155,9 @@ Using equation \eqref{eq:its} notation we [🗒️ enrich this data](/assets/dat
 |       12.57           |      48       |          1           |        24           |
 
 
-## Naïve solution
+## Naive solution
 
-Let's implement a ordinary least squares (OLS) regression using `statsmodels` to measure the impact of our intervention:
+Let's implement an ordinary least squares (OLS) regression using `statsmodels` to measure the impact of our intervention:
 
 ```python
 import pandas as pd
@@ -198,9 +202,9 @@ Kurtosis:                       2.172   Cond. No.                         125.
 </pre>
 
 The model estimates that the bounce rate decreased 🔻 0.52% and this effect
-is statistically significant ($P>|t|$ is virtually zero) meaning the bounce rates drops from 12.91 + 24 * 0.0129 = 13.22% to 12.70% . It is also noteworth that the model estimates a small (on average 🔻 0.0297%) but with statistical significance trend of a decrease in bounce rate each week after intervention, which is unexpected since the CDN serves the whole website just a few hour after activation. 
+is statistically significant ($P>|t|$ is virtually zero) meaning the bounce rates drop from 12.91 + 24 * 0.0129 = 13.22% to 12.70% . It is also noteworth that the model estimates a small (on average 🔻 0.0297%) but with statistical significance trend of a decrease in bounce rate each week after intervention, which is unexpected since the CDN serves the whole website just a few hours after activation. 
 
-The figure bellow depict how the model fits before and after intervention and how it project a counterfactual would be:
+The figure bellow depicts how the model fits before and after intervention and how it project a counterfactual would be:
 
 <details>
     <summary>Click to see code.</summary>
@@ -269,7 +273,7 @@ plt.ylabel("Bounce rate (%)");
     </picture>
 </p>
 
-OLS (Ordinary Least Squares) regression have [seven mains assumptions](https://www.datasciencecentral.com/profiles/blogs/7-classical-assumptions-of-ordinary-least-squares-ols-linear) but for brevity in this artice we will focus on two only:
+OLS (Ordinary Least Squares) regression has [seven main assumptions](https://www.datasciencecentral.com/profiles/blogs/7-classical-assumptions-of-ordinary-least-squares-ols-linear) but for brevity in this article we will focus on two only:
 
 - Individual observations are *independent*.
 - Residuals follow a normal distribution.
@@ -300,11 +304,11 @@ hypothesis ($H_0$).
 Which for a small dataset (less than 50 points) looks sufficiently gaussian. 
 
 
-Overall the assumption of normality of residuals can't be convincingly refuted ✅.
+Overall, the assumption of normality of residuals can't be convincingly refuted. ✅
 
 #### Checking independence of observations:
 
-The [Durbin-Watson statistic](https://en.wikipedia.org/wiki/Durbin%E2%80%93Watson_statistic) test if the residuals are correlated with its imediate predecessor, that is, if they have an autocorrelationf at lag 1 or $AR(1)$. Its value ranges from 0 to 4 and values smaller than 1.5 indicates a positive aucorrelation while values greater than 2.5 signal negative autocorrelation.
+The [Durbin-Watson statistic](https://en.wikipedia.org/wiki/Durbin%E2%80%93Watson_statistic) test if the residuals are correlated with its immediate predecessor, that is, if they have an autocorrelation at lag 1 or $AR(1)$. Its value ranges from 0 to 4 and values smaller than 1.5 indicate a positive autocorrelation, while values greater than 2.5 signal a negative autocorrelation.
 
 If we take a look again at our OLS [summary output](#ols-output) we will observe that the Durbin-Watson statistic has a value of 0.665 which signals a strong positive $AR(1)$.
 
@@ -342,7 +346,7 @@ rules + residual_plot
     </picture>
 </p>
 
-Notice how residuals above/bellow zero have most points temporally close to it also above/bellow zero as well which goes against the independence of observations assumption of OLS ❌. 
+Notice how residuals above/bellow zero have most points temporally close to it also above/bellow zero as well, which goes against the independence of observations assumption of OLS ❌. 
 
 ---
 
@@ -375,7 +379,7 @@ $\epsilon_t$: white noise ( $\mathcal{N}(0, \sigma²)$ ) at time $t$.
 
 #### Autocorrelation
 
-To assess how much an observation correlates with past observations is useful to do an autocorrelation plot as bellow:
+To assess how much an observation correlates with past observations it is useful to do an autocorrelation plot as shown bellow:
 
 <details>
 <summary>Click to see code.</summary>
@@ -423,12 +427,12 @@ plt.show()
 ### Model selection
 
 The theory states that in an autoregressive model its autocorrelation plot should depict an exponential decay and the number of lags $p$
-should be taken from the partial autocorrelation chart using its $p$ most relevant lags. Applying the theory to our plots above we conclude that
+should be taken from the partial autocorrelation chart using its $p$ most relevant lags. Applying the theory to our plots above, we conclude that
 our model is autoregressive of lag 1 also known as AR(1).
 
 ### ARIMA 
 
-In statistics [ARIMA](https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average) stands for **autoregressive integrated moving average** model and as can be depreended by the name AR models are as especial case of ARIMA therefore AR(1) is equivalent to ARIMA(1,0,0). 
+In statistics [ARIMA](https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average) stands for **autoregressive integrated moving average** model and as can be inferred by the name AR models are as especial case of ARIMA therefore AR(1) is equivalent to ARIMA(1,0,0). 
 
 We can model an AR(1) process to our dataset using `statsmodel` ARIMA as bellow:
 
