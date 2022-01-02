@@ -473,7 +473,7 @@ Prob(H) (two-sided):                  0.47   Kurtosis:                         3
 ```
 
 The autoregressive model estimates that the bounce rate decreased 🔻 0.55% on average and this effect
-is statistically significant ($P>|t| = 4.4\\% $, less than our $\alpha = 5\\% $) meaning the bounce rates drops from 12.91 + 24 * 0.0121 = 13.20% to 12.65%. However, unlike the previous OLS model, the autoregressive model does not estimate a statistical significance trend of decrease in bounce rate each week after intervention, which is in line with our expectations. 
+is statistically significant ($P>|t| = 4.4\\% $, less than our $\alpha = 5\\% $) meaning the bounce rates drops from 12.91 + 24 * 0.0121 = 13.20% to 12.65%. However, unlike the previous OLS model, the autoregressive model does not estimate a statistical significance trend of a decrease in bounce rate each week after intervention, which is in line with our expectations. 
 
 The models estimates (with counterfactual projections) can be seen in the chart below:
 
@@ -573,14 +573,15 @@ We may observe that the ARIMA(1,0,0) model residuals not only are in general nor
 
 ## Conclusion
 
-A/B tests are a the most powerful and trustworthy method to do measure the impact of modifications/changes even before they are fully implemented which is why they are so widely used. 
-However there are some scenarios where A/B tests are not feasible and this is when the knoledge of quasi-experiments becomes valuable to get statisticaly sound  measurements of change impact.
+A/B tests are a the most powerful and trustworthy method to do measure the impact of modifications/changes even before they are fully implemented, which is why they are so widely used. 
 
-In this post we have shown why a ordinary least square (OLS) linear regression is not a good modeling approach for time series data since they usualy present non-neglitible autocorrelation that violates some assumptions of OLS.
+However, there are some scenarios where A/B tests are not feasible and this is when the knowledge of quasi-experiments becomes valuable to get statistically sound  measurements of change impact.
 
-We demonstrated with an example how to use python (`statsmodel`, `matplotlib`, `altair` and `pandas`) to visualize residuals and plot autocorrelation and partial autocorrelations charts to figure out the lag of an autoregressive model and then implemented a ARIMA model using statsmodel to observed a more accurate and precise analysis and how to interpret `statsmodel` model output for OLS and ARIMA.
+In this post we have shown why an ordinary least square (OLS) linear regression is not a good modeling approach for time series data since they usualy present non-negligible autocorrelation that violates some assumptions of OLS.
 
-We also shown how to plot in a single chart the models estimates (mean and 95% confidence interval) for the time periods before and after intervention and respective counterfactual.
+We demonstrated with an example how to use python (`statsmodel`, `matplotlib`, `altair` and `pandas`) to visualize residuals and plot autocorrelation and partial autocorrelations charts to figure out the lag of an autoregressive model and then implemented a ARIMA model using `statsmodel` to observed a more accurate and precise analysis and how to interpret `statsmodel` model output for OLS and ARIMA.
+
+We also showed how to plot in a single chart the models estimates (mean and 95% confidence interval) for the time periods before and after intervention and its respective counterfactual.
 
 <span id="chegou-no-fim"></span>
 
