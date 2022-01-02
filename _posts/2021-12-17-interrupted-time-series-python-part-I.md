@@ -473,9 +473,9 @@ Prob(H) (two-sided):                  0.47   Kurtosis:                         3
 ```
 
 The autoregressive model estimates that the bounce rate decreased 🔻 0.55% on average and this effect
-is statistically significant ($P>|t| = 4.4\\% $, less than our $\alpha = 5\\% $) meaning the bounce rates drops from 12.91 + 24 * 0.0121 = 13.20% to 12.65%. However, unlike the previous OLS model the autoregressive model doesn't estimates a statistical significance trend of decrease in bounce rate each week after intervention which is in line with our expectations. 
+is statistically significant ($P>|t| = 4.4\\% $, less than our $\alpha = 5\\% $) meaning the bounce rates drops from 12.91 + 24 * 0.0121 = 13.20% to 12.65%. However, unlike the previous OLS model, the autoregressive model does not estimate a statistical significance trend of decrease in bounce rate each week after intervention, which is in line with our expectations. 
 
-The models estimates (with counterfactual projection) can be seen in the chart bellow:
+The models estimates (with counterfactual projections) can be seen in the chart below:
 
 <details>
 <summary>Click to see code.</summary>
