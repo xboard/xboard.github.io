@@ -438,7 +438,7 @@ our model is autoregressive of lag 1 also known as AR(1).
 
 In statistics [ARIMA](https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average) stands for **autoregressive integrated moving average** model and as can be inferred by the name AR models are as especial case of ARIMA therefore AR(1) is equivalent to ARIMA(1,0,0). 
 
-We can model an AR(1) process to our dataset using `statsmodel` ARIMA as bellow:
+We can model an AR(1) process to our dataset using `statsmodels` ARIMA as bellow:
 
 ```python
 from statsmodels.tsa.arima.model import ARIMA
@@ -587,7 +587,7 @@ However, there are some scenarios where A/B tests are not feasible and this is w
 
 In this post we have shown why an ordinary least square (OLS) linear regression is not a good modeling approach for time series data since they usualy present non-negligible autocorrelation that violates some assumptions of OLS.
 
-We demonstrated with an example how to use python (`statsmodel`, `matplotlib`, `altair` and `pandas`) to visualize residuals and plot autocorrelation and partial autocorrelations charts to figure out the lag of an autoregressive model and then implemented a ARIMA model using `statsmodel` to observed a more accurate and precise analysis and how to interpret `statsmodel` model output for OLS and ARIMA.
+We demonstrated with an example how to use python (`statsmodels`, `matplotlib`, `altair` and `pandas`) to visualize residuals and plot autocorrelation and partial autocorrelations charts to figure out the lag of an autoregressive model and then implemented a ARIMA model using `statsmodels` to observed a more accurate and precise analysis and how to interpret `statsmodels` model output for OLS and ARIMA.
 
 We also showed how to plot in a single chart the models estimates (mean and 95% confidence interval) for the time periods before and after intervention and its respective counterfactual.
 
