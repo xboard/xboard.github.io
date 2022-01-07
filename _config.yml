@@ -1,9 +1,9 @@
 # Site settings
 title: xboard.dev
 email: 
-description: "Everything data and programming"
+description: "Versão pt-br de algumas publicações que faço em https://xboard.dev"
 baseurl: ""
-url: "https://www.xboard.dev"
+url: "https://xboard.github.io"
 twitter_username: xboard_
 github_username:  xboard
 bio_domain: "xboard.me"
@@ -21,6 +21,7 @@ social:
     - https://www.linkedin.com/in/flavioarruda
     - https://github.com/xboard
     - https://bio.link/xboard
+    - https://xboard.dev
 # Build settings
 markdown: CommonMarkGhPages
 commonmark:
