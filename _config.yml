@@ -1,6 +1,6 @@
 # Site settings
-title: [pt-BR]xboard.dev
-email: 
+title: /[pt-BR/]xboard.dev
+email: xboard.dev@gmail.com
 description: "Versão pt-br de algumas publicações que faço em <a href='https://xboard.dev'>https://xboard.dev</a>"
 baseurl: ""
 url: "https://xboard.github.io"
