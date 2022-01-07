@@ -1,7 +1,7 @@
 # Site settings
 title: [pt-BR]xboard.dev
 email: 
-description: "Versão pt-br de algumas publicações que faço em https://xboard.dev"
+description: "Versão pt-br de algumas publicações que faço em <a href='https://xboard.dev'>https://xboard.dev</a>"
 baseurl: ""
 url: "https://xboard.github.io"
 twitter_username: xboard_
